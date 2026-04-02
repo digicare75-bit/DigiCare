@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigiCare+</title>
+    <meta name="description" content="Meet the brilliant minds behind HealthCare+ digital healthcare platform.">
+        <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="styleApp.css">
+    <link rel="stylesheet" href="new.css">
+    <style>
+        .member-status {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: rgba(36, 187, 68, 0.2);
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #24bb44;
+}
+        .group-photo-container {
+            width: 100%;
+            height: 500px;
+            background: rgba(79, 70, 229, 0.05);
+            border: 2px dashed var(--primary-light);
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .group-photo-placeholder {
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .group-photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .group-photo-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .member-card {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        @media (max-width: 640px) {
+            .member-card {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        .member-image-space {
+            width: clamp(120px, 28vw, 150px);
+            height: clamp(120px, 28vw, 150px);
+            border-radius: 50%;
+            /* background: var(--bg-main); */
+            /* border: 3px solid var(--primary-light); */
+            border: 5px solid rgba(36, 187, 68, 0.6);;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .member-image-space img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+
+        }
+
+        .member-role {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            /* background:  */
+            color: rgb(109, 174, 10);
+            border: #24bb44 solid 1px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .glass-cardd {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 35px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            /* overflow: hidden; */
+            /* animation: fadeInUp 0.8s ease-out backwards; */
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tech-badge {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            /* background: var(--bg-main); */
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+            /* border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-muted); */
+        }
+
+        .dragon-team-page {
+            min-height: 100vh;
+            padding-top: 95px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .dragon-team-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        /* Dragon Emblem Animation */
+        .dragon-emblem {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: clamp(400px, 80vw, 800px);
+            height: clamp(400px, 80vw, 800px);
+            background: radial-gradient(circle, rgba(36, 187, 68, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+
+            0%,
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        .team-header-section {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: clamp(40px, 10vh, 60px) 20px 40px;
+        }
+
+        .dragon-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: clamp(10px, 2vw, 14px) clamp(20px, 4vw, 32px);
+            background: linear-gradient(135deg, rgba(36, 187, 68, 0.2) 0%, rgba(14, 165, 233, 0.2) 100%);
+            border: 1px solid rgba(36, 187, 68, 0.5);
+            border-radius: 50px;
+            font-size: clamp(0.875rem, 3vw, 1rem);
+            font-weight: 700;
+            color: #24bb44;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .dragon-badge i {
+            font-size: 20px;
+            animation: dragonRoar 2s ease-in-out infinite;
+        }
+
+        @keyframes dragonRoar {
+
+            0%,
+            100% {
+                transform: scale(1) rotate(0deg);
+            }
+
+            25% {
+                transform: scale(1.1) rotate(-5deg);
+            }
+
+            75% {
+                transform: scale(1.1) rotate(5deg);
+            }
+        }
+
+        .team-header-section h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .team-header-section h1 .dragon-highlight {
+            background: linear-gradient(135deg, #24bb44 0%, #0ea5e9 50%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: gradientFlow 5s ease infinite;
+        }
+
+        @keyframes gradientFlow {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .team-header-section p {
+            font-size: clamp(1.1rem, 4vw, 1.25rem);
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+         @media (max-width: 900px) {
+            .group-photo-container{
+                height: 300px;
+            }
+            }
+        /* Mobile responsiveness for dragon elements */
+        @media (max-width: 768px) {
+            .dragon-emblem {
+                opacity: 0.3;
+            }
+
+            .particle {
+                transform: scale(0.7);
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            /* .nav-container {
+                padding: 0 1rem;
+            } */
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .group-photo-container {
+                width: 100%;
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dragon-badge i {
+                font-size: 1.2rem;
+            }
+
+            .team-header-section {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            main.container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            .group-photo-container {
+                width: 100%;
+                height: 150px;
+            }
+        }
+
+      
+        body {
+            overflow-x: hidden;
+        }
+        .member-status::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #24bb44;
+    animation: statusPulse 2s ease-in-out infinite;
+}
+    </style>
+</head>
+
+<body class="dragon-team-page">
+      <nav class="navbar">
+    <div class="nav-container">
+
+      <!-- Logo -->
+      <a href="index.html" class="logo">
+      <img src="assets/favicon.png" alt=""> DigiCare+
+      </a>
+
+      <!-- Links -->
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="about.html" class="nav-link">About Us</a>
+        <a href="pharmacy.html" class="nav-link">Pharmacy Store</a>
+
+        <a href="login.html" class="btn btn-outline">Log In</a>
+        <a href="register.html" class="btn btn-primary">Sign Up</a>
+      </div>
+
+      <!-- Toggle -->
+      <button class="menu-toggle" id="menuToggle">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+    </div>
+  </nav>
+    <div class="dragon-emblem"></div>
+    <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="particle" style="left: 30%; animation-delay: 2s;"></div>
+    <div class="particle" style="left: 50%; animation-delay: 4s;"></div>
+    <div class="particle" style="left: 70%; animation-delay: 6s;"></div>
+    <div class="particle" style="left: 90%; animation-delay: 8s;"></div>
+
+    <section class="team-header-section">
+        <div class="dragon-badge">
+            <i class="fas fa-dragon"></i>
+            Dragon Team
+        </div>
+        <h1>Meet Our <span class="dragon-highlight">Expert Team</span></h1>
+        <p>The talented professionals behind DIGI.CARE's success. Our dedicated team works tirelessly to deliver
+            exceptional healthcare solutions.</p>
+    </section>
+
+    <main class="containerr" style="padding-top: 0px; padding-bottom: 100px;">
+        <!-- <div class="section-header text-center fade-in-up">
+            <h1 class="text-5xl mb-4">Meet Our <span class="text-gradient">Core Team</span></h1>
+            <p class="text-muted max-w-2xl mx-auto mb-12">The dedicated professionals working tirelessly to bridge the gap between healthcare and technology.</p>
+        </div> -->
+
+        <!-- Large Group Photo Space -->
+        <div class="group-photo-container fade-in-up delay-1">
+            <div class="group-photo-placeholder">
+                <!-- <i class="fa-solid fa-users-rectangle"></i> -->
+                <!-- <h3>Main Group Photo Space</h3>
+                <p>Upload your 1200x400 group photo here</p> -->
+                <img src="assets/image/team_mate.png" alt="">
+            </div>
+            <!-- <div class="pulse-ring"></div> -->
+        </div>
+
+        <div class="team-grid">
+            <!-- Roushan Kumar -->
+            <div class="member-card glass-cardd hover-lift fade-in-up delay-2">
+                <div class="member-status">Team Lead</div>
+                <div class="member-image-space">
+                    <!-- <span>150 x 150<br>Photo</span> -->
+                    <img src="assets/image/Roushan.png" alt="">
+                </div>
+                <div class="member-role">Project Lead</div>
+                <h3 class="mb-2">Roushan Kumar</h3>
+                <p class="text-sm text-muted">Crafting beautiful and responsive user interfaces that provide a seamless
+                    medical experience.</p>
+                <div class="tech-stack mb-4">
+                    <span class="tech-badge">HTML5</span>
+                    <span class="tech-badge">CSS3</span>
+                    <span class="tech-badge">JavaScript</span>
+                    <span class="tech-badge">UI/UX Layouts</span>
+                </div>
+                <div class="social-links justify-center">
+                    <a href="https://wa.me/message/GYHCH3UKRKL7A1" class="social-icon" title="WhatsApp"><i
+                            class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#" class="social-icon" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="social-icon" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="tel:+919572690518" class="social-icon" title="Phone"><i class="fa-solid fa-phone"></i></a>
+                </div>
+            </div>
+
+            <!-- Sonu Kumar -->
+            <div class="member-card glass-cardd hover-lift fade-in-up delay-3">
+                <div class="member-status">Active</div>
+
+                <div class="member-image-space">
+                    <!-- <span>150 x 150<br>Photo</span> -->
+                    <img src="assets/image/sonu.png" alt="">
+                </div>
+                <div class="member-role">Backend Developer</div>
+                <h3 class="mb-2">Sonu Kumar</h3>
+                <p style="color: rgb(164, 73, 40); font-weight: bold;">Aara</p>
+                <p class="text-sm text-muted mb-4">Architecting robust and secure server-side logic to handle sensitive
+                    patient data with precision.</p>
+                <div class="tech-stack mb-4">
+                    <span class="tech-badge">Java</span>
+                    <span class="tech-badge">Spring Boot</span>
+                    <span class="tech-badge">MySQL</span>
+                    <span class="tech-badge">REST APIs</span>
+                </div>
+                <div class="social-links justify-center">
+                    <a href="https://wa.me/919572690518" class="social-icon" title="WhatsApp"><i
+                            class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#" class="social-icon" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="social-icon" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="tel:+919572690518" class="social-icon" title="Phone"><i class="fa-solid fa-phone"></i></a>
+                </div>
+            </div>
+
+            <!-- Aman Kumar -->
+            <div class="member-card glass-cardd hover-lift fade-in-up delay-4">
+                <div class="member-status">Active</div>
+
+                <div class="member-image-space">
+                    <!-- <span>150 x 150<br>Photo</span> -->
+                    <img src="assets/image/aman.png" alt="">
+                </div>
+                <div class="member-role">Creative Designer</div>
+                <h3 class="mb-2">Aman Kumar</h3>
+                <p style="color: rgb(164, 73, 40); font-weight: bold;">OppositeWala</p>
+
+                <p class="text-sm text-muted mb-4">Visualizing the platform's aesthetic identity and creating intuitive
+                    design systems.</p>
+                <div class="tech-stack mb-4">
+                    <span class="tech-badge">Figma</span>
+                    <span class="tech-badge">Canva</span>
+                    <span class="tech-badge">Prototyping</span>
+                    <span class="tech-badge">Branding</span>
+                </div>
+                <div class="social-links justify-center">
+                    <a href="" class="social-icon" title="WhatsApp"><i
+                            class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#" class="social-icon" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="social-icon" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="tel:+919572690518" class="social-icon" title="Phone"><i class="fa-solid fa-phone"></i></a>
+                </div>
+            </div>
+
+            <!-- Shivam Kumar -->
+            <div class="member-card glass-cardd hover-lift fade-in-up delay-1">
+                <div class="member-status">Active</div>
+
+                <div class="member-image-space">
+                    <!-- <span>150 x 150<br>Photo</span> -->
+                    <img src="assets/image/shivam.png" alt="">
+                </div>
+                <div class="member-role">Content Strategist</div>
+                <h3 class="mb-2">Shivam Kumar</h3>
+                <p style="color: rgb(164, 73, 40); font-weight: bold;">Liyamo</p>
+
+                <p class="text-sm text-muted mb-4">Curating clear, concise, and informative medical content for doctors
+                    and patients alike.</p>
+                <div class="tech-stack mb-4">
+                    <span class="tech-badge">Medical Writing</span>
+                    <span class="tech-badge">SEO</span>
+                    <span class="tech-badge">Quality Control</span>
+                </div>
+                <div class="social-links justify-center">
+                    <a href="" class="social-icon" title="WhatsApp"><i
+                            class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#" class="social-icon" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="social-icon" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="tel:+919572690518" class="social-icon" title="Phone"><i class="fa-solid fa-phone"></i></a>
+                </div>
+            </div>
+
+            <!-- Sanjan Kumar -->
+            <div class="member-card glass-cardd hover-lift fade-in-up delay-2">
+                <div class="member-status">Active</div>
+
+                <div class="member-image-space">
+                    <!-- <span>150 x 150<br>Photo</span> -->
+                    <img src="assets/image/sanjan.png" alt="">
+                </div>
+                <div class="member-role">Tester</div>
+                <h3 class="mb-2">Sanjan Kumar</h3>
+                <p style="color: rgb(164, 73, 40); font-weight: bold;">Multiplexer</p>
+
+                <p class="text-sm text-muted mb-4">Ensuring the highest standards of reliability and performance through
+                    rigorous testing protocols.</p>
+                <div class="tech-stack mb-4">
+                    <span class="tech-badge">Unit Testing</span>
+                    <span class="tech-badge">Automation</span>
+                    <span class="tech-badge">Bug Hunting</span>
+                </div>
+                <div class="social-links justify-center">
+                    <a href="" class="social-icon" title="WhatsApp"><i
+                            class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#" class="social-icon" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="social-icon" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="tel:+919572690518" class="social-icon" title="Phone"><i class="fa-solid fa-phone"></i></a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+  <footer class="professional-footer">
+    <div class="footer-main">
+      <div class="footer-container">
+        <!-- Column 1: Brand Info -->
+        <div class="footer-col footer-brand">
+          <div class="footer-logo">
+            <img src="assets/favicon.png" alt="DIGI.CARE">
+          </div>
+          <p class="brand-description">We provide smart digital healthcare solutions including online consultations,
+            pharmacy services, and secure patient management.</p>
+          <div class="social-links">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+
+        <!-- Column 2: Quick Links -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Find Doctors</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Book Appointment</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Pharmacy</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> AI Assistant</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Healthcare Services -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Healthcare Services</h4>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Online Consultation</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Video Consultation</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Digital Prescription</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Order Medicines</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Emergency Support</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 4: Contact & Support -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Contact & Support</h4>
+          <ul class="footer-contact">
+            <li>
+              <span class="contact-icon"><i class="fas fa-envelope"></i></span>
+              <span class="contact-text">support@digicare.com</span>
+            </li>
+            <li>
+              <span class="contact-icon"><i class="fas fa-phone-alt"></i></span>
+              <span class="contact-text">+1 (555) 123-4567</span>
+            </li>
+            <li>
+              <span class="contact-icon"><i class="fas fa-clock"></i></span>
+              <span class="contact-text">24/7 Support Available</span>
+            </li>
+            <li>
+              <span class="contact-icon"><i class="fas fa-map-marker-alt"></i></span>
+              <span class="contact-text">123 Health Street, Medical City</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Footer Bar -->
+    <div class="footer-bottom">
+      <div class="footer-bottom-container">
+        <p class="copyright">&copy; 2026 Smart DigiCare+ System. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+    <script src="assets/js/app.js"></script>
+    <script>
+
+
+
+ document.addEventListener('DOMContentLoaded', () => {
+
+      const toggle = document.getElementById('menuToggle');
+      const nav = document.getElementById('navLinks');
+      const overlay = document.getElementById('overlay');
+
+      toggle.addEventListener('click', () => {
+        nav.classList.toggle('active');
+        overlay.classList.toggle('active');
+
+        toggle.querySelector('i').classList.toggle('fa-bars');
+        toggle.querySelector('i').classList.toggle('fa-xmark');
+      });
+
+      // Close on overlay click
+      overlay.addEventListener('click', () => {
+        nav.classList.remove('active');
+        overlay.classList.remove('active');
+
+        toggle.querySelector('i').classList.remove('fa-xmark');
+        toggle.querySelector('i').classList.add('fa-bars');
+      });
+
+      // Close on link click
+      document.querySelectorAll('#navLinks a').forEach(link => {
+        link.addEventListener('click', () => {
+          nav.classList.remove('active');
+          overlay.classList.remove('active');
+
+          toggle.querySelector('i').classList.remove('fa-xmark');
+          toggle.querySelector('i').classList.add('fa-bars');
+        });
+      });
+
+    });
+
+
+    document.addEventListener("click", (e) => {
+  if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+    navLinks.classList.remove("active");
+    icon.classList.add("fa-bars");
+    icon.classList.remove("fa-xmark");
+  }
+});
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('token');
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+            if (token && user.firstName) {
+                const navLinks = document.querySelector('.nav-links');
+                navLinks.innerHTML = `
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link active">About Us</a>
+                    <a href="pharmacy.html" class="nav-link">Pharmacy Store</a>
+                    <a href="patient-dashboard.html" class="nav-link btn btn-primary btn-sm><i class="fa-solid fa-gauge mr-2">My DashBoard</a>
+                    <div class="nav-user profile-dropdown">
+                         <div class="avatar avatar-sm">${Helpers.getAvatarHtml(user.profileImageUrl, user.firstName + ' ' + (user.lastName || ''), 'avatar-sm')}</div>
+                       
+                        <a href="#" onclick="logout()" class="btn btn-sm btn-outline ml-2"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                    </div>
+                `;
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+
+</html>

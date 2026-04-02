@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DigiCare+</title>
+  <meta name="description"
+    content="A comprehensive digital healthcare platform for seamless doctor-patient interactions.">
+  <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="new.css">
+  <link rel="stylesheet" href="styleApp.css">
+  <!-- <link rel="stylesheet" href="blinckDot.css"> -->
+  <script src="hero-slider.js"></script>
+
+   <script>if (!sessionStorage.getItem("introPlayed")) {
+    
+    window.location.href = "intro.html";
+  }
+  </script>
+  <script>
+(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="UmqxX2rb0xj3i2h4dgUM0";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+</script>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+
+      <!-- Logo -->
+      <a href="index.html" class="logo">
+        <img src="assets/favicon.png" alt=""> DigiCare+
+      </a>
+
+      <!-- Links -->
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="about.html" class="nav-link">About Us</a>
+        <a href="pharmacy.html" class="nav-link">Pharmacy Store</a>
+
+        <a href="login.html" class="btn btn-outline">Log In</a>
+        <a href="register.html" class="btn btn-primary">Sign Up</a>
+      </div>
+
+      <!-- Toggle -->
+      <button class="menu-toggle" id="menuToggle">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+    </div>
+  </nav>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay"></div>
+
+  
+
+ 
+
+  <main>
+
+    <div id="main" data-scroll-container>
+      <!-- Hero Slider Section -->
+      <section class="hero-slider" id="heroSlider">
+        <!-- Slides Container -->
+        <div class="slides-container">
+
+          <!-- Slide 1: Smart Healthcare Management System -->
+          <div class="slide active" data-slide="1">
+            <div class="slide-background"
+              style="background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%);">
+
+
+              <video class="bg-video" muted loop playsinline>
+                <source src="assets/" type="video/mp4">
+              </video>
+
+              <div class="slide-pattern"></div>
+              <div class="slide-gradient"></div>
+            </div>
+            <div class="slide-content">
+              <div class="slide-badge">
+                <span class="badge-dot"></span>
+                <span>Welcome to DIGI.CARE</span>
+              </div>
+              <h1 class="slide-title">
+                Smart Healthcare<br>
+                <span class="title-accent">Management System</span>
+              </h1>
+              <p class="slide-description">
+                Book appointments and connect with doctors easily. Experience seamless healthcare management with our
+                advanced digital platform designed for your convenience.
+              </p>
+              <div class="slide-cta">
+                <a href="#" class="btn-primary">
+                  <span class="btn-icon"><i class="fas fa-calendar-check"></i></span>
+                  <span class="btn-text">
+                    <span class="btn-main">Book Appointment</span>
+                    <span class="btn-sub">Schedule now</span>
+                  </span>
+                  <span class="btn-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="#" class="btn-secondary">
+                  <span class="btn-icon"><i class="fas fa-user-md"></i></span>
+                  <span class="btn-text">
+                    <span class="btn-main">Find Doctors</span>
+                    <span class="btn-sub">Browse specialists</span>
+                  </span>
+                </a>
+              </div>
+              <div class="slide-stats">
+                <div class="stat-item">
+                  <div class="stat-icon"><i class="fas fa-user-md"></i></div>
+                  <div class="stat-info">
+                    <span class="stat-number">100+</span>
+                    <span class="stat-label">Verified Doctors</span>
+                  </div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                  <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                  <div class="stat-info">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Online Support</span>
+                  </div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                  <div class="stat-icon"><i class="fas fa-shield-alt"></i></div>
+                  <div class="stat-info">
+                    <span class="stat-number">Secure</span>
+                    <span class="stat-label">Medical Records</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slide-visual">
+              <div class="visual-card">
+                <div class="visual-image">
+                  <img src="assets/digicare.png" alt="Smart Healthcare">
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 2: Online Consultation -->
+          <div class="slide" data-slide="2">
+            <div class="slide-background"
+              style="background: linear-gradient(135deg, #134e4a 0%, #0d9488 50%, #14b8a6 100%);">
+
+
+              <video class="bg-video" muted loop playsinline>
+                <source src="assets/" type="video/mp4">
+              </video>
+              <div class="slide-pattern"></div>
+              <div class="slide-gradient"></div>
+            </div>
+            <div class="slide-content">
+              <div class="slide-badge video-badge">
+                <span class="badge-icon"><i class="fas fa-video"></i></span>
+                <span>Virtual Healthcare</span>
+              </div>
+              <h1 class="slide-title">
+                Online<br>
+                <span class="title-accent">Consultation</span>
+              </h1>
+              <p class="slide-description">
+                Talk with verified doctors through video and chat. Get quality healthcare from the comfort of your home
+                with our secure telemedicine platform.
+              </p>
+              <div class="slide-cta">
+                <a href="#" class="btn-primary teal">
+                  <span class="btn-icon"><i class="fas fa-video"></i></span>
+                  <span class="btn-text">
+                    <span class="btn-main">Start Video Call</span>
+                    <span class="btn-sub">Connect now</span>
+                  </span>
+                  <span class="btn-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="#" class="btn-secondary">
+                  <span class="btn-icon"><i class="fas fa-comments"></i></span>
+                  <span class="btn-text">
+                    <span class="btn-main">Chat with Doctor</span>
+                    <span class="btn-sub">Send message</span>
+                  </span>
+                </a>
+              </div>
+              <div class="slide-features">
+                <div class="feature-item">
+                  <div class="feature-icon"><i class="fas fa-shield-virus"></i></div>
+                  <span>HIPAA Compliant</span>
+                </div>
+                <div class="feature-item">
+                  <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+                  <span>Mobile Friendly</span>
+                </div>
+                <div class="feature-item">
+                  <div class="feature-icon"><i class="fas fa-certificate"></i></div>
+                  <span>Verified Doctors</span>
+                </div>
+              </div>
+            </div>
+            <div class="slide-visual">
+              <div class="visual-card consultation-card">
+                <div class="visual-image">
+                  <img src="assets/videocall.jpeg" alt="Online Consultation">
+                </div>
+                <div class="video-call-overlay">
+                  <div class="call-status">
+                    <span class="status-dot"></span>
+                    <span>Live Consultation</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 3: Emergency Medical Support -->
+          <div class="slide" data-slide="3">
+            <div class="slide-background"
+              style="background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 50%, #b91c1c 100%);">
+
+
+              <video class="bg-video" muted loop playsinline>
+                <source src="assets/" type="video/mp4">
+              </video>
+              <div class="slide-pattern"></div>
+              <div class="slide-gradient"></div>
+            </div>
+            <div class="slide-content">
+              <div class="slide-badge emergency-badge">
+                <span class="badge-icon"><i class="fas fa-ambulance"></i></span>
+                <span>24/7 Emergency</span>
+              </div>
+              <h1 class="slide-title">
+                Emergency<br>
+                <span class="title-accent">Medical Support</span>
+              </h1>
+              <p class="slide-description">
+                Quick access to emergency consultation services. Our dedicated emergency team is available round the
+                clock
+                to provide immediate medical assistance when you need it most.
+              </p>
+              <div class="slide-cta">
+                <a href="" class="btn-primary emergency">
+                  <span class="btn-icon"><i class="fas fa-exclamation-triangle"></i></span>
+                  <span class="btn-text">
+                    <span class="btn-main">Emergency Help</span>
+                    <span class="btn-sub">Click to activate</span>
+                  </span>
+                  <span class="btn-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="tel:108" class="btn-secondary emergency">
+                  <span class="btn-icon"><i class="fas fa-phone-alt"></i></span>
+                  <span class="btn-text">
+                    <span class="btn-main">Call 108</span>
+                    <span class="btn-sub">Immediate assistance</span>
+                  </span>
+                </a>
+              </div>
+              <div class="emergency-features">
+                <div class="emergency-item">
+                  <div class="emergency-icon"><i class="fas fa-heartbeat"></i></div>
+                  <div class="emergency-info">
+                    <span class="emergency-title">Critical Care</span>
+                    <span class="emergency-desc">Immediate response team</span>
+                  </div>
+                </div>
+                <div class="emergency-item">
+                  <div class="emergency-icon"><i class="fas fa-user-nurse"></i></div>
+                  <div class="emergency-info">
+                    <span class="emergency-title">Expert Staff</span>
+                    <span class="emergency-desc">Trained medical professionals</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slide-visual">
+              <div class="visual-card emergency-card">
+                <div class="visual-image">
+                  <img src="assets/emergency.jpg" alt="Emergency Support">
+                </div>
+                <div class="emergency-overlay">
+                  <div class="pulse-ring"></div>
+                  <div class="pulse-ring delay-1"></div>
+                  <div class="pulse-ring delay-2"></div>
+                  <div class="emergency-icon-large"><i class="fas fa-ambulance"></i></div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 4: Secure Medical Records -->
+          <div class="slide" data-slide="4">
+            <div class="slide-background"
+              style="background: linear-gradient(135deg, #1e1b4b 0%, #3730a3 50%, #4f46e5 100%);">
+
+
+              <video class="bg-video" muted loop playsinline>
+                <source src="assets/" type="video/mp4">
+              </video>
+              <div class="slide-pattern"></div>
+              <div class="slide-gradient"></div>
+            </div>
+            <div class="slide-content">
+              <div class="slide-badge secure-badge">
+                <span class="badge-icon"><i class="fas fa-lock"></i></span>
+                <span>Encrypted & Secure</span>
+              </div>
+              <h1 class="slide-title">
+                Secure<br>
+                <span class="title-accent">Medical Records</span>
+              </h1>
+              <p class="slide-description">
+                Patients can manage and access their health records safely. Your medical data is protected with
+                bank-level
+                encryption, ensuring complete privacy and security.
+              </p>
+              <div class="slide-cta">
+                <a href="#" class="btn-primary purple">
+                  <span class="btn-icon"><i class="fas fa-folder-open"></i></span>
+                  <span class="btn-text">
+                    <span class="btn-main">View Records</span>
+                    <span class="btn-sub">Access now</span>
+                  </span>
+                  <span class="btn-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="#" class="btn-secondary">
+                  <span class="btn-icon"><i class="fas fa-user-cog"></i></span>
+                  <span class="btn-text">
+                    <span class="btn-main">Manage Profile</span>
+                    <span class="btn-sub">Update settings</span>
+                  </span>
+                </a>
+              </div>
+              <div class="security-features">
+                <div class="security-item">
+                  <div class="security-icon"><i class="fas fa-shield-alt"></i></div>
+                  <div class="security-text">
+                    <span class="security-title">256-bit Encryption</span>
+                    <span class="security-desc">Bank-level security</span>
+                  </div>
+                </div>
+                <div class="security-item">
+                  <div class="security-icon"><i class="fas fa-file-medical-alt"></i></div>
+                  <div class="security-text">
+                    <span class="security-title">Digital Prescriptions</span>
+                    <span class="security-desc">Easy access anytime</span>
+                  </div>
+                </div>
+                <div class="security-item">
+                  <div class="security-icon"><i class="fas fa-share-alt"></i></div>
+                  <div class="security-text">
+                    <span class="security-title">Share Records</span>
+                    <span class="security-desc">With your doctors</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slide-visual">
+              <div class="visual-card secure-card">
+                <div class="visual-image">
+                  <img src="assets/recode.jpeg" alt="Medical Records">
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 5: Pharmacy Services -->
+          <div class="slide" data-slide="5">
+            <div class="slide-background"
+              style="background: linear-gradient(135deg, #047857 0%, #059669 50%, #10b981 100%);">
+
+
+              <video class="bg-video" muted loop playsinline>
+                <source src="assets/" type="video/mp4">
+              </video>
+              <div class="slide-pattern"></div>
+              <div class="slide-gradient"></div>
+            </div>
+            <div class="slide-content">
+              <div class="slide-badge pharmacy-badge">
+                <span class="badge-icon"><i class="fas fa-pills"></i></span>
+                <span>Online Pharmacy</span>
+              </div>
+              <h1 class="slide-title">
+                Pharmacy<br>
+                <span class="title-accent">Services</span>
+              </h1>
+              <p class="slide-description">
+                Order medicines and healthcare products online with fast home delivery. Get genuine medications from
+                verified pharmacies with easy refill options and doorstep delivery.
+              </p>
+              <div class="slide-cta">
+                <a href="#" class="btn-primary pharmacy">
+                  <span class="btn-icon"><i class="fas fa-shopping-cart"></i></span>
+                  <span class="btn-text">
+                    <span class="btn-main">Order Medicines</span>
+                    <span class="btn-sub">Browse pharmacy</span>
+                  </span>
+                  <span class="btn-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="#" class="btn-secondary">
+                  <span class="btn-icon"><i class="fas fa-prescription"></i></span>
+                  <span class="btn-text">
+                    <span class="btn-main">Upload Prescription</span>
+                    <span class="btn-sub">Quick order</span>
+                  </span>
+                </a>
+              </div>
+              <div class="pharmacy-features">
+                <div class="pharmacy-item">
+                  <div class="pharmacy-icon"><i class="fas fa-truck"></i></div>
+                  <div class="pharmacy-info">
+                    <span class="pharmacy-title">Fast Delivery</span>
+                    <span class="pharmacy-desc">Same day delivery available</span>
+                  </div>
+                </div>
+                <div class="pharmacy-item">
+                  <div class="pharmacy-icon"><i class="fas fa-check-circle"></i></div>
+                  <div class="pharmacy-info">
+                    <span class="pharmacy-title">Genuine Medicines</span>
+                    <span class="pharmacy-desc">100% verified products</span>
+                  </div>
+                </div>
+                <div class="pharmacy-item">
+                  <div class="pharmacy-icon"><i class="fas fa-percent"></i></div>
+                  <div class="pharmacy-info">
+                    <span class="pharmacy-title">Best Prices</span>
+                    <span class="pharmacy-desc">Discounts on medicines</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slide-visual">
+              <div class="visual-card pharmacy-card">
+                <div class="visual-image">
+                  <img src="assets/pharmacy.jpg" alt="Pharmacy Services">
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- Slide Counter -->
+        <div class="slide-counter" id="slideCounter">
+          <span class="current-slide">01</span>
+          <span class="counter-divider">/</span>
+          <span class="total-slides">05</span>
+        </div>
+
+        <div class="hero-scroll">
+          <div class="scroll-mouse">
+            <div class="scroll-wheel"></div>
+          </div>
+          <span>Scroll to explore</span>
+        </div>
+
+
+      </section>
+
+
+      <!-- Smart Healthcare Services Section -->
+      <section class="smart-services">
+
+
+        <div class="services-container">
+          <div class="section-header">
+            <h2>Smart Healthcare Services</h2>
+            <p>Everything you need to manage your health in one secure platform.</p>
+          </div>
+
+          <div class="services-scroll-wrapper">
+            <div class="services-scroll">
+              <!-- Original Cards (8) -->
+              <!-- Card 1: Book Appointment -->
+              <div class="service-card">
+                <div class="card-icon">
+                  <i class="fas fa-calendar-plus"></i>
+                </div>
+                <h3 class="card-title">Book Appointment</h3>
+                <p class="card-description">Find the right doctor and schedule your consultation in seconds.</p>
+                <!-- <button class="card-btn">
+              Explore <i class="fas fa-arrow-right"></i>
+            </button> -->
+              </div>
+
+              <!-- Card 2: My Appointments -->
+              <div class="service-card">
+                <div class="card-icon">
+                  <i class="fas fa-calendar-check"></i>
+                </div>
+                <h3 class="card-title">My Appointments</h3>
+                <p class="card-description">Track upcoming appointments and check confirmation status easily.</p>
+                <!-- <button class="card-btn">
+              Explore <i class="fas fa-arrow-right"></i>
+            </button> -->
+              </div>
+
+              <!-- Card 3: Chat With Doctor -->
+              <div class="service-card">
+                <div class="card-icon">
+                  <i class="fas fa-comments"></i>
+                </div>
+                <h3 class="card-title">Chat With Doctor</h3>
+                <p class="card-description">Secure messaging with your doctor for quick medical guidance.</p>
+                <!-- <button class="card-btn">
+              Explore <i class="fas fa-arrow-right"></i>
+            </button> -->
+              </div>
+
+              <!-- Card 4: Video Consultation -->
+              <div class="service-card">
+                <div class="card-icon">
+                  <i class="fas fa-video"></i>
+                </div>
+                <h3 class="card-title">Video Consultation</h3>
+                <p class="card-description">Start live video consultations from anywhere.</p>
+                <!-- <button class="card-btn">
+              Explore <i class="fas fa-arrow-right"></i>
+            </button> -->
+              </div>
+
+              <!-- Card 5: Digital Prescription -->
+              <div class="service-card">
+                <div class="card-icon">
+                  <i class="fas fa-prescription"></i>
+                </div>
+                <h3 class="card-title">Digital Prescription</h3>
+                <p class="card-description">Doctors can send online prescriptions that you can download anytime.</p>
+                <!-- <button class="card-btn">
+              Explore <i class="fas fa-arrow-right"></i>
+            </button> -->
+              </div>
+
+              <!-- Card 6: Order Medicines -->
+              <div class="service-card">
+                <div class="card-icon">
+                  <i class="fas fa-pills"></i>
+                </div>
+                <h3 class="card-title">Order Medicines</h3>
+                <p class="card-description">Upload your prescription or search medicines manually and order easily.</p>
+                <!-- <button class="card-btn">
+              Explore <i class="fas fa-arrow-right"></i>
+            </button> -->
+              </div>
+
+              <!-- Card 7: AI Health Assistant -->
+              <div class="service-card">
+                <div class="card-icon">
+                  <i class="fas fa-robot"></i>
+                </div>
+                <h3 class="card-title">AI Health Assistant</h3>
+                <p class="card-description">Ask health questions and get instant guidance.</p>
+                <!-- <button class="card-btn">
+              Explore <i class="fas fa-arrow-right"></i>
+            </button> -->
+              </div>
+
+              <!-- Card 8: Complaint & Support -->
+              <div class="service-card">
+                <div class="card-icon">
+                  <i class="fas fa-headset"></i>
+                </div>
+                <h3 class="card-title">Complaint & Support</h3>
+                <p class="card-description">Report issues or submit complaints directly to the system.</p>
+                <!-- <button class="card-btn">
+              Explore <i class="fas fa-arrow-right"></i>
+            </button> -->
+              </div>
+
+              <!-- Duplicated Cards (8) for Infinity Scroll -->
+              <!-- Card 1: Book Appointment -->
+              <div class="service-card">
+                <div class="card-icon">
+                  <i class="fas fa-calendar-plus"></i>
+                </div>
+                <h3 class="card-title">Book Appointment</h3>
+                <p class="card-description">Find the right doctor and schedule your consultation in seconds.</p>
+                <!-- <button class="card-btn">
+              Explore <i class="fas fa-arrow-right"></i>
+            </button> -->
+              </div>
+
+              <!-- Card 2: My Appointments -->
+              <div class="service-card">
+                <div class="card-icon">
+                  <i class="fas fa-calendar-check"></i>
+                </div>
+                <h3 class="card-title">My Appointments</h3>
+                <p class="card-description">Track upcoming appointments and check confirmation status easily.</p>
+                <!-- <button class="card-btn">
+              Explore <i class="fas fa-arrow-right"></i>
+            </button> -->
+              </div>
+
+              <!-- Card 3: Chat With Doctor -->
+              <div class="service-card">
+                <div class="card-icon">
+                  <i class="fas fa-comments"></i>
+                </div>
+                <h3 class="card-title">Chat With Doctor</h3>
+                <p class="card-description">Secure messaging with your doctor for quick medical guidance.</p>
+                <!-- <button class="card-btn">
+              Explore <i class="fas fa-arrow-right"></i>
+            </button> -->
+              </div>
+
+              <!-- Card 4: Video Consultation -->
+              <div class="service-card">
+                <div class="card-icon">
+                  <i class="fas fa-video"></i>
+                </div>
+                <h3 class="card-title">Video Consultation</h3>
+                <p class="card-description">Start live video consultations from anywhere.</p>
+                <!-- <button class="card-btn">
+              Explore <i class="fas fa-arrow-right"></i>
+            </button> -->
+              </div>
+
+              <!-- Card 5: Digital Prescription -->
+              <div class="service-card">
+                <div class="card-icon">
+                  <i class="fas fa-prescription"></i>
+                </div>
+                <h3 class="card-title">Digital Prescription</h3>
+                <p class="card-description">Doctors can send online prescriptions that you can download anytime.</p>
+                <!-- <button class="card-btn">
+              Explore <i class="fas fa-arrow-right"></i>
+            </button> -->
+              </div>
+
+              <!-- Card 6: Order Medicines -->
+              <div class="service-card">
+                <div class="card-icon">
+                  <i class="fas fa-pills"></i>
+                </div>
+                <h3 class="card-title">Order Medicines</h3>
+                <p class="card-description">Upload your prescription or search medicines manually and order easily.</p>
+                <!-- <button class="card-btn">
+              Explore <i class="fas fa-arrow-right"></i>
+            </button> -->
+              </div>
+
+              <!-- Card 7: AI Health Assistant -->
+              <div class="service-card">
+                <div class="card-icon">
+                  <i class="fas fa-robot"></i>
+                </div>
+                <h3 class="card-title">AI Health Assistant</h3>
+                <p class="card-description">Ask health questions and get instant guidance.</p>
+                <!-- <button class="card-btn">
+              Explore <i class="fas fa-arrow-right"></i>
+            </button> -->
+              </div>
+
+              <!-- Card 8: Complaint & Support -->
+              <div class="service-card">
+                <div class="card-icon">
+                  <i class="fas fa-headset"></i>
+                </div>
+                <h3 class="card-title">Complaint & Support</h3>
+                <p class="card-description">Report issues or submit complaints directly to the system.</p>
+                <!-- <button class="card-btn">
+              Explore <i class="fas fa-arrow-right"></i>
+            </button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+     
+
+      <!-- Testimonials Section -->
+      <section class="testimonials-section py-20" id="testimonials">
+        <div class="container">
+          <div class="section-headerr text-center mb-12 fade-in-up">
+            <h2 class="heading-md">What Our Patients Say</h2>
+            <p class="text-muted">Real experiences from our community members about our platform.</p>
+          </div>
+
+          <div id="testimonials-container" class="grid grid-3 gap-6">
+            <!-- Dynamic Testimonials here -->
+            <div class="text-center py-10 w-full col-span-3 text-muted">
+              <span class="spinner"></span> Loading testimonials...
+            </div>
+          </div>
+
+          <!-- <div class="text-center mt-12">
+                    <a href="register.html" class="btn btn-primary">Join Our Community & Share Your Story</a>
+                </div> -->
+        </div>
+      </section>
+  </main>
+
+  <footer class="professional-footer">
+    <div class="footer-main">
+      <div class="footer-container">
+        <!-- Column 1: Brand Info -->
+        <div class="footer-col footer-brand">
+          <div class="footer-logo">
+            <img src="assets/favicon.png" alt="DIGI.CARE">
+          </div>
+          <p class="brand-description">We provide smart digital healthcare solutions including online consultations,
+            pharmacy services, and secure patient management.</p>
+          <div class="social-links">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+
+        <!-- Column 2: Quick Links -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Find Doctors</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Book Appointment</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Pharmacy</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> AI Assistant</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Healthcare Services -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Healthcare Services</h4>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Online Consultation</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Video Consultation</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Digital Prescription</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Order Medicines</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Emergency Support</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 4: Contact & Support -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Contact & Support</h4>
+          <ul class="footer-contact">
+            <li>
+              <span class="contact-icon"><i class="fas fa-envelope"></i></span>
+              <span class="contact-text">support@digicare.com</span>
+            </li>
+            <li>
+              <span class="contact-icon"><i class="fas fa-phone-alt"></i></span>
+              <span class="contact-text">+1 (555) 123-4567</span>
+            </li>
+            <li>
+              <span class="contact-icon"><i class="fas fa-clock"></i></span>
+              <span class="contact-text">24/7 Support Available</span>
+            </li>
+            <li>
+              <span class="contact-icon"><i class="fas fa-map-marker-alt"></i></span>
+              <span class="contact-text">123 Health Street, Medical City</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Footer Bar -->
+    <div class="footer-bottom">
+      <div class="footer-bottom-container">
+        <p class="copyright">&copy; 2026 Smart DigiCare+ System. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="assets/js/app.js"></script>
+  <script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+      const toggle = document.getElementById('menuToggle');
+      const nav = document.getElementById('navLinks');
+      const overlay = document.getElementById('overlay');
+
+      toggle.addEventListener('click', () => {
+        nav.classList.toggle('active');
+        overlay.classList.toggle('active');
+
+        toggle.querySelector('i').classList.toggle('fa-bars');
+        toggle.querySelector('i').classList.toggle('fa-xmark');
+      });
+
+      // Close on overlay click
+      overlay.addEventListener('click', () => {
+        nav.classList.remove('active');
+        overlay.classList.remove('active');
+
+        toggle.querySelector('i').classList.remove('fa-xmark');
+        toggle.querySelector('i').classList.add('fa-bars');
+      });
+
+      // Close on link click
+      document.querySelectorAll('#navLinks a').forEach(link => {
+        link.addEventListener('click', () => {
+          nav.classList.remove('active');
+          overlay.classList.remove('active');
+
+          toggle.querySelector('i').classList.remove('fa-xmark');
+          toggle.querySelector('i').classList.add('fa-bars');
+        });
+      });
+
+    });
+
+    // Check authentication state for navbar
+    document.addEventListener('DOMContentLoaded', async () => {
+      const token = localStorage.getItem('token');
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+      if (token && user.firstName) {
+        const navLinks = document.querySelector('.nav-links');
+        navLinks.innerHTML = `
+                    <a href="index.html" class="nav-link active">Home</a>
+                    
+                    <a href="about.html" class="nav-link">About Us</a>
+                    <a href="pharmacy.html" class="nav-link">Pharmacy Store</a>
+                    <a href="patient-dashboard.html" class="nav-link btn btn-primary btn-sm><i class="fa-solid fa-gauge mr-2">My DashBoard</a>
+                    <div class="nav-user profile-dropdown">
+                        <div class="avatar avatar-sm ">${Helpers.getAvatarHtml(user.profileImageUrl, user.firstName + ' ' + (user.lastName || ''), 'avatar-sm')}</div>
+                       
+                        <a href="#" onclick="logout()" class="btn btn-sm btn-outline ml-2"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                    </div>
+                `;
+        // <div class="avatar">${user.firstName.charAt(0)}${user.lastName ? user.lastName.charAt(0) : ''}</div>
+      }
+      await loadTestimonials();
+    });
+
+    async function loadTestimonials() {
+      const container = document.getElementById('testimonials-container');
+      try {
+        const feedbacks = await window.ProjectFeedbackAPI.getAll();
+        if (!feedbacks || feedbacks.length === 0) {
+          container.innerHTML = '<div class="col-span-3 text-center text-muted">No testimonials yet. Be the first to share your experience!</div>';
+          return;
+        }
+
+        // Show only top and latest 6
+        const latestFeedbacks = feedbacks
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+          .slice(0, 6);
+
+        container.innerHTML = latestFeedbacks.map(f => `
+                    <div class="glass-card p-6 flex flex-col gap-4 hover-lift fade-in-up">
+                        <div class="flex justify-between items-start">
+                            <div class="flex gap-1 text-yellow-500">
+                                ${Array(5).fill(0).map((_, i) => `<i class="fa-solid fa-star ${i < f.rating ? 'text-primary' : 'text-muted opacity-20'}"></i>`).join('')}
+                            </div>
+                            <span class="text-xs text-muted">${new Date(f.createdAt).toLocaleDateString()}</span>
+                        </div>
+                        <p class="text-sm italic mb-4">"${f.experience}"</p>
+                        <div class="mt-auto pt-4 border-t flex items-center gap-3">
+                            <div class="flex-shrink-0">
+                                ${Helpers.getAvatarHtml(f.profileImageUrl, f.firstName + ' ' + f.lastName, 'avatar-sm')}
+                            </div>
+                            <div>
+                                <h4 class="m-0 text-sm">${f.firstName} ${f.lastName.charAt(0)}.</h4>
+                                <div class="text-xs text-muted">${f.maskedEmail} | ${f.lastFourPhone}</div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+      } catch (error) {
+        console.error("Testimonials error:", error);
+        container.innerHTML = '<div class="col-span-3 text-center text-danger">Failed to load testimonials.</div>';
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      window.location.reload();
+    }
+  </script>
+<!-- <script>
+(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="8qkOhY8edbCt1c4-2nPaz";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+</script> -->
+
+
+<!-- <script src="//code.tidio.co/j4usmqkf6qhhamfpawwvzagtg31db3te.js" async></script> -->
+  
+</body>
+
+</html>
