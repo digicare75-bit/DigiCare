@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigiCare+</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+        <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<style>
+    .logo img {
+        height: 50px;
+        width: 50px;
+        /* display: flex; */
+        align-items: center;
+        /* gap: 10px; */
+    }
+    
+</style>
+<body>
+    <div class="auth-wrapper">
+        <div class="auth-card glass-card fade-in-up">
+            <div class="auth-header">
+                <a href="index.html" class="logo">
+                    <img src="assets/favicon.png" alt=""> DigiCare+
+                </a>
+                <h2 class="mt-4">Welcome Back</h2>
+                <p class="text-muted">Enter your credentials to access your account.</p>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="form-label" for="username">Email / Phone no.</label>
+                    <i class="fa-solid fa-user input-icon"></i>
+                    <input type="text" id="username" name="username" class="form-control has-icon"
+                        placeholder="DigiCaredragon05@gmail.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <i class="fa-solid fa-lock input-icon"></i>
+                    <input type="password" id="password" name="password" class="form-control has-icon"
+                        placeholder="••••••••" required>
+                    <i class="fa-solid fa-eye input-icon-right" id="togglePassword"></i>
+                </div>
+
+                <div class="flex justify-between items-center mb-4">
+                    <label class="flex items-center gap-2 cursor-pointer text-sm">
+                        <input type="checkbox" name="remember" class="accent-primary">
+                        <span>Remember me</span>
+                    </label>
+                    <a href="forgot-password.html" class="text-sm font-medium">Forgot Password?</a>
+                </div>
+
+                <button type="submit" id="loginBtn" class="btn btn-primary w-full pulse-hover mt-2">
+                    <i class="fa-solid fa-right-to-bracket mr-2"></i> Log In
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <p class="text-muted mb-4">Account not verified? <a href="verify-email.html" class="font-medium text-primary">Verify Email</a></p>
+                <p class="text-muted">Don't have an account? <a href="register.html"
+                        class="font-medium text-primary">Sign up here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="assets/js/app.js"></script>
+    <script>
+        // Toggle Password Visibility
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const passwordInput = document.getElementById('password');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        // Handle Login Submission
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('loginBtn');
+            const originalText = btn.innerHTML;
+
+            Helpers.setButtonLoading(btn, true);
+
+            try {
+                const data = Helpers.getFormData(e.target);
+                // Fake delay for demo purposes
+                await new Promise(r => setTimeout(r, 600));
+
+                const response = await window.AuthAPI.login(data.username, data.password);
+
+                localStorage.setItem('token', response.token);
+                localStorage.setItem('user', JSON.stringify(response));
+
+                let redirectUrl = 'index.html';
+                if (response.role === 'PATIENT') redirectUrl = 'patient-dashboard.html';
+                else if (response.role === 'DOCTOR') redirectUrl = 'doctor-dashboard.html';
+                else if (response.role === 'ADMIN') redirectUrl = 'admin-dashboard.html';
+
+                Helpers.showToast('Login successful! Redirecting...', 'success');
+                setTimeout(() => {
+                    window.location.href = redirectUrl;
+                }, 1000);
+            } catch (error) {
+                Helpers.showToast(error.message || 'Login failed', 'error');
+            } finally {
+                Helpers.setButtonLoading(btn, false, originalText);
+            }
+        });
+    </script>
+</body>
+
+</html>

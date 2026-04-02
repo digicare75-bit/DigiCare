@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigiCare+</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+        <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body{
+             min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+   
+    background-color:#0f172a;
+    color: rgb(0, 0, 0);
+        }
+        /* Reusing Dashboard Style base */
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 100px auto 40px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+            
+        }
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+        .sidebar-link {
+            padding: 1rem;
+            border-radius: 12px;
+            color: var(--text-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+        .sidebar-link:hover, .sidebar-link.active {
+            background: rgba(13, 138, 188, 0.1);
+            color: var(--primary-color);
+        }
+        .profile-header {
+            text-align: center;
+            padding: 2rem;
+        }
+        .profile-img-lg {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-color);
+            margin: 0 auto 1rem;
+            background-color: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+        
+        .records-list {
+            margin-top: 2rem;
+            display: grid;
+            gap: 1rem;
+        }
+        .record-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            transition: transform 0.3s;
+        }
+        .record-card:hover {
+            transform: translateY(-2px);
+            background: #fff;
+        }
+        .record-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-right: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container { grid-template-columns: 1fr; }
+            .record-card { flex-direction: column; text-align: center; gap: 1rem; }
+            .record-icon { margin-right: 0; }
+        }
+    </style>
+</head>
+<body class="pattern-bg">
+
+    <nav class="navbar glass">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/favicon.png" alt=""> DigiCare+
+            </a>
+            <div class="nav-links" id="nav-links"></div>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="dashboard-container fade-in-up">
+        <!-- Sidebar -->
+        <div class="dashboard-sidebar">
+            <div class="glass-card profile-header">
+                <div id="profileAvatar" class="profile-img-lg">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <h3 id="sidebarName" class="m-0">Loading...</h3>
+                <p id="sidebarEmail" class="text-xs text-muted">loading...</p>
+                <span class="badge text-xs mt-2 inline-block">Patient</span>
+                
+                <div class="sidebar-menu">
+                    <a href="patient-dashboard.html" class="sidebar-link">
+                        <i class="fa-solid fa-user-doctor w-5 text-center"></i> My Profile
+                    </a>
+                    <a href="patient-records.html" class="sidebar-link active">
+                        <i class="fa-solid fa-file-medical w-5 text-center"></i> Medical Records
+                    </a>
+                    <a href="#" onclick="logout()" class="sidebar-link text-danger mt-4">
+                        <i class="fa-solid fa-right-from-bracket w-5 text-center"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="dashboard-content">
+            <!-- Add New Record Form -->
+            <div class="glass-card mb-6">
+                <h2 class="mb-4 text-xl"><i class="fa-solid fa-cloud-arrow-up mr-2 text-primary"></i> Upload New Record</h2>
+                <form id="recordForm">
+                    <div class="grid grid-2 gap">
+                        <div class="form-group full-width">
+                            <label class="form-label" for="description">Document Description</label>
+                            <input type="text" id="description" name="description" class="form-control" placeholder="e.g. Blood Test Report 2026" required>
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label" for="fileUrl">File URL / Cloud Link</label>
+                            <input type="url" id="fileUrl" name="fileUrl" class="form-control" placeholder="https://drive.google.com/..." required>
+                        </div>
+                    </div>
+                    <button type="submit" id="uploadBtn" class="btn btn-primary pulse-hover mt-4">
+                        <i class="fa-solid fa-upload mr-2"></i> Save Record
+                    </button>
+                </form>
+            </div>
+
+            <!-- Existing Records List -->
+            <div class="glass-card">
+                <h2 class="text-xl mb-4">My Documents</h2>
+                <div class="records-list" id="recordsList">
+                    <!-- Loaded dynamically, mock items shown as placeholder -->
+                    <div class="text-center text-muted p-4">Loading records...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container" class="toast-container"></div>
+    <script src="assets/js/app.js"></script>
+    <script>
+        // Setup User Info
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = localStorage.getItem('token');
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            
+            if (!token) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Navbar
+            document.getElementById('nav-links').innerHTML = `
+                <a href="index.html" class="nav-link">Home</a>
+                <div class="nav-user profile-dropdown">
+                    <div class="avatar">${Helpers.getAvatarHtml(user.profileImageUrl, user.firstName + ' ' + (user.lastName || ''))}</div>
+                    <span class="btn btn-primaryy btn-sm">${user.firstName || 'User'}</span>
+                </div>
+            `;
+
+            // Sidebar details (fetch profile for sidebar data if possible)
+            try {
+                const profile = await window.PatientAPI.getProfile();
+                document.getElementById('sidebarName').textContent = `${profile.firstName} ${profile.lastName}`;
+                document.getElementById('sidebarEmail').textContent = profile.email || '';
+                
+                if (profile.profileImageUrl) {
+                    document.getElementById('profileAvatar').innerHTML = `<img src="${profile.profileImageUrl}" alt="Profile" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">`;
+                } else {
+                    document.getElementById('profileAvatar').innerHTML = `<div style="font-size:2rem;font-weight:bold">${profile.firstName?.charAt(0)}</div>`;
+                }
+
+            } catch (error) {
+                // If API is down, use local user data
+                document.getElementById('sidebarName').textContent = `${user.firstName} ${user.lastName || ''}`;
+                document.getElementById('sidebarEmail').textContent = user.email || '';
+            }
+
+            // Mock list load (since there's no GET /records endpoint provided, we pretend or keep it static)
+            renderMockRecords();
+        });
+
+        // Mock State for Records
+        let localRecords = [
+            { id: 1, description: "Annual Blood Test Report", fileUrl: "#", date: new Date().toLocaleDateString() }
+        ];
+
+        function renderMockRecords() {
+            const list = document.getElementById('recordsList');
+            if (localRecords.length === 0) {
+                list.innerHTML = `<div class="text-center text-muted p-4">No records found.</div>`;
+                return;
+            }
+            
+            list.innerHTML = localRecords.map(rec => `
+                <div class="record-card">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-file-pdf record-icon"></i>
+                        <div>
+                            <h4 class="m-0">${rec.description}</h4>
+                            <p class="text-xs text-muted m-0 mt-1">Uploaded: ${rec.date}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="${rec.fileUrl}" target="_blank" class="btn btn-outline btn-sm">
+                            <i class="fa-solid fa-eye"></i> View
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'login.html';
+        }
+
+        // Upload new record
+        document.getElementById('recordForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('uploadBtn');
+            const originalText = btn.innerHTML;
+            Helpers.setButtonLoading(btn, true);
+
+            try {
+                const data = Helpers.getFormData(e.target);
+                const payload = {
+                    fileUrl: data.fileUrl,
+                    description: data.description
+                };
+
+                const response = await window.PatientAPI.addRecord(payload);
+                Helpers.showToast(response.message || 'Record successfully uploaded!', 'success');
+                
+                // Add to mock list for visual feedback
+                localRecords.unshift({
+                    id: Date.now(),
+                    description: data.description,
+                    fileUrl: data.fileUrl,
+                    date: new Date().toLocaleDateString()
+                });
+                renderMockRecords();
+                e.target.reset();
+
+            } catch (error) {
+                Helpers.showToast('Upload failed: ' + error.message, 'error');
+            } finally {
+                Helpers.setButtonLoading(btn, false, originalText);
+            }
+        });
+    </script>
+</body>
+</html>
