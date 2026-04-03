@@ -1173,7 +1173,12 @@ html{
   position: relative;
   width: 100%;
   max-width: 480px;
+    transition: transform 0.15s ease-out;
+     box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+     transform-style: preserve-3d;
+     border-radius: 30px;
 }
+
 
 .visual-image {
   position: relative;
@@ -1186,8 +1191,10 @@ html{
   width: 100%;
   height: auto;
   display: block;
+  transition: transform 0.15s ease-out;
   /* animation: floatVisual 6s ease-in-out infinite; */
 }
+
 
 /* @keyframes floatVisual {
   0%, 100% { transform: translateY(0); }
