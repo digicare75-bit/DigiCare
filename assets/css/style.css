@@ -57,6 +57,10 @@
       display: none;
       
     }
+ ::selection{
+        background: #f50bb3;
+        color: white;
+    }
 body {
     
     font-family: var(--font-sans);
