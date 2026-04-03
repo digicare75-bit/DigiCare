@@ -355,3 +355,10 @@ window.Helpers = {
         return `<div class="avatar ${sizeClass}"><div class="avatar-placeholder">${initials}</div></div>`;
     }
 };
+
+
+
+
+// right click disabled 
+  document.addEventListener("contextmenu", (e) => e.preventDefault());
+
