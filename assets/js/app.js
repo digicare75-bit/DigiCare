@@ -362,3 +362,41 @@ window.Helpers = {
 // right click disabled 
   document.addEventListener("contextmenu", (e) => e.preventDefault());
 
+
+
+
+
+
+const cards = document.querySelectorAll(".visual-card");
+
+cards.forEach((card) => {
+  const img = card.querySelector("img");
+
+  card.addEventListener("mousemove", (e) => {
+    let rect = card.getBoundingClientRect();
+
+    let x = e.clientX - rect.left;
+    let y = e.clientY - rect.top;
+
+    let centerX = rect.width / 2;
+    let centerY = rect.height / 2;
+
+    let rotateX = -(y - centerY) / 15;
+    let rotateY = (x - centerX) / 15;
+
+    // Card Tilt
+    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+    // Image Zoom + Move
+    let moveX = (centerX - x) / 20;
+    let moveY = (centerY - y) / 20;
+
+    img.style.transform = `scale(1.2) translate(${moveX}px, ${moveY}px)`;
+  });
+
+  // Reset
+  card.addEventListener("mouseleave", () => {
+    card.style.transform = "rotateX(0) rotateY(0)";
+    img.style.transform = "scale(1) translate(0,0)";
+  });
+});
