@@ -400,3 +400,63 @@ cards.forEach((card) => {
     img.style.transform = "scale(1) translate(0,0)";
   });
 });
+
+
+
+// +++++++++++++++++++++++++++++++++++++++++++++ chatbot +++++++++++++++++++++++++++++++++++++++++++++
+const tooltip = document.getElementById("chatTooltip");
+
+// 👉 Different messages list
+const messages = [
+    "Chat with DigiCare",
+    " Need medical help?",
+    " Ask about medicines",
+    " Emergency support", 
+    " Ask about Dragon Team",
+    
+];
+
+let index = 0;
+
+function showTooltipLoop() {
+    //  text change
+    tooltip.textContent = messages[index];
+    index = (index + 1) % messages.length;
+
+    //  show
+    tooltip.classList.add("show");
+
+    //  hide after 3 sec
+    setTimeout(() => {
+        tooltip.classList.remove("show");
+    }, 3000);
+}
+
+//  Repeat every 6 sec
+setInterval(showTooltipLoop, 20000);
+
+//  First time delay
+setTimeout(showTooltipLoop, 9000);
+
+
+
+/* ================= CHAT TOGGLE ================= */
+
+const toggleBtn = document.getElementById("toggleBtn");
+const chatBox = document.getElementById("chatBox");
+
+// Toggle click
+toggleBtn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    chatBox.classList.toggle("active");
+});
+
+// Chatbox click
+chatBox.addEventListener("click", function (e) {
+    e.stopPropagation();
+});
+
+// Outside click = close
+document.addEventListener("click", function () {
+    chatBox.classList.remove("active");
+});
