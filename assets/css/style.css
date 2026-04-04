@@ -1250,72 +1250,116 @@ a {
 }
 
 
+/* ===== CHATBOT GLOBAL FIX ===== */
+.toggle-btn,
+.toggle-box,
+.chat-tooltip {
+    z-index: 99999; /* sabse upar */
+}
 
-
-/* chatbot */
-
+/* ===== BUTTON ===== */
 .toggle-btn {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    padding: 10px;
+    padding: 8px;
     border-radius: 50%;
     cursor: pointer;
-    z-index: 1000;
 }
+
 .toggle-btn img {
-    width: 70px;
-    height: 70px;
+    width: 65px;
+    height: 65px;
     border-radius: 50%;
     object-fit: cover;
     background: #fff;
 }
 
-/* Chatbox */
+/* ===== CHATBOX ===== */
 .toggle-box {
     position: fixed;
-    bottom: 100px;
+    bottom: 95px;
     right: 20px;
     width: 350px;
     height: 500px;
+    max-height: 80vh; /* overflow fix */
     background: #fff;
     border-radius: 12px;
     display: none;
-    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    box-shadow: 0 0 25px rgba(0,0,0,0.3);
     overflow: hidden;
-    z-index: 999;
 
-    /* Smooth animation */
     transform: translateY(20px);
     opacity: 0;
     transition: all 0.3s ease;
 }
 
-/* Active state */
 .toggle-box.active {
     display: block;
     transform: translateY(0);
     opacity: 1;
 }
-/* Tooltip */
+
+/* ===== TOOLTIP ===== */
 .chat-tooltip {
     position: fixed;
-    bottom: 30px;
-    right: 100px;
+    bottom: 40px;
+    right: 95px;
     background: #007bff;
     color: #fff;
     padding: 8px 14px;
     border-radius: 20px;
-    font-size: 14px;
+    font-size: 13px;
     white-space: nowrap;
     opacity: 0;
     transform: translateX(20px);
     transition: all 0.4s ease;
-    z-index: 999;
 }
 
-/* Show state */
 .chat-tooltip.show {
     opacity: 1;
     transform: translateX(0);
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 768px) {
+
+    /* Button */
+    .toggle-btn img {
+        width: 55px;
+        height: 55px;
+    }
+
+    /* Chatbox full width */
+    .toggle-box {
+        width: 95%;
+        right: 2.5%;
+        bottom: 80px;
+        height: 70vh;
+        border-radius: 10px;
+    }
+
+    /* Tooltip adjust */
+    .chat-tooltip {
+        right: 80px;
+        bottom: 35px;
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+}
+
+/* ===== SMALL MOBILE (extra) ===== */
+@media (max-width: 480px) {
+
+    .toggle-box {
+        width: 100%;
+        right: 0;
+        bottom: 0;
+        height: 100vh; /* full screen chat */
+        border-radius: 0;
+    }
+
+    .chat-tooltip {
+        display: none; /* small screen pe hide better UX */
+    }
 }
