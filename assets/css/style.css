@@ -1332,7 +1332,7 @@ a {
 
     /* Chatbox full width */
     .toggle-box {
-        width: 80%;
+        width: 95%;
         right: 2.5%;
         bottom: 80px;
         height: 70vh;
@@ -1352,7 +1352,7 @@ a {
 @media (max-width: 480px) {
 
     .toggle-box {
-        width: 80%;
+        width: 95%;
         right: 2.5%;
         bottom: 80px;
         height: 70vh;
