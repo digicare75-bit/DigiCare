@@ -1261,7 +1261,7 @@ a {
 .toggle-btn {
     position: fixed;
     bottom: 20px;
-    right: 20px;
+    right: 5px;
     padding: 8px;
     border-radius: 50%;
     cursor: pointer;
@@ -1273,6 +1273,8 @@ a {
     border-radius: 50%;
     object-fit: cover;
     background: #fff;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.5);
+    transition: all 0.3s ease
 }
 
 /* ===== CHATBOX ===== */
