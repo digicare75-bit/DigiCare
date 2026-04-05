@@ -44,23 +44,34 @@
             margin-bottom: 4rem;
             position: relative;
             overflow: hidden;
+            perspective: 1000px;
         }
 
         .group-photo-placeholder {
-            text-align: center;
-            color: var(--text-muted);
+            width: 100%;
+            height: 100%;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            will-change: transform;
+            position: relative;
         }
 
         .group-photo-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.4s ease;
         }
 
         .group-photo-placeholder i {
             font-size: 4rem;
             margin-bottom: 1rem;
             opacity: 0.3;
+        }
+        .group-photo-placeholder:hover img {
+        transform: scale(1.08);
         }
 
         .team-grid {
@@ -737,7 +748,32 @@
             localStorage.removeItem('user');
             window.location.href = 'index.html';
         }
-    </script>
+// card image tilt , follow cursor
+const groupCard = document.querySelector(".group-photo-placeholder");
+
+groupCard.addEventListener("mousemove", (e) => {
+    const rect = groupCard.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = -(y - centerY) / 12;
+    const rotateY = (x - centerX) / 12;
+
+    groupCard.style.transform = `
+        rotateX(${rotateX}deg)
+        rotateY(${rotateY}deg)
+        scale(1.03)
+    `;
+});
+
+groupCard.addEventListener("mouseleave", () => {
+    groupCard.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+});
+</script>
 </body>
 
 </html>
