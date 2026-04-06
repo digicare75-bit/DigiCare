@@ -719,6 +719,113 @@
           </div>
         </div>
       </section>
+      <style>
+          .health-section {
+          width: 100%;
+          max-width: 1600px;
+          margin-left: auto;
+          margin-right: auto;
+          padding-left: 1.5rem;
+          padding-right: 1.5rem;
+          padding: 80px 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+          background-color: #0f2a1e;
+          color: rgb(255, 255, 255);
+        }
+
+        .health-container {
+          width: 100%;
+          max-width: 1000px;
+          backdrop-filter: blur(20px);
+          /* background: rgba(255,255,255,0.05); */
+          border-radius: 20px;
+          padding: 30px;
+          box-shadow: 0 0 40px rgba(219, 139, 139, 0.2);
+        }
+
+        .health-title {
+          text-align: center;
+          margin-bottom: 30px;
+          font-size: 28px;
+        }
+
+        .health-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 20px;
+        }
+
+        .health-card {
+          padding: 20px;
+          border-radius: 15px;
+          background: rgba(255, 255, 255, 0.08);
+          text-align: center;
+          transition: 0.3s;
+        }
+
+        .health-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 0 20px #0000003b;
+        }
+
+        .health-card h3 {
+          color: #95ff00;
+          margin-top: 10px;
+          /* text-shadow: 0 0 10px #00ffff; */
+        }
+
+        /* ECG animation */
+        .ecg-line {
+          margin-top: 30px;
+          overflow: hidden;
+        }
+
+        .ecg-line svg {
+          width: 200%;
+          animation: ecgMove 2s linear infinite;
+        }
+
+        @keyframes ecgMove {
+          0% {
+            transform: translateX(0);
+          }
+
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+
+        .health-card {
+          position: relative;
+          overflow: hidden;
+        }
+
+        .health-card::before {
+          content: "";
+          position: absolute;
+          width: 150%;
+          height: 150%;
+          background: linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+          top: -50%;
+          left: -50%;
+          transform: rotate(25deg);
+          animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+          0% {
+            transform: translateX(-100%) rotate(25deg);
+          }
+
+          100% {
+            transform: translateX(100%) rotate(25deg);
+          }
+        }
+      </style>
       <!-- Testimonials Section -->
       <section class="testimonials-section py-20" id="testimonials">
         <div class="container">
