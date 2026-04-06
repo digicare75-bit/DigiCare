@@ -692,7 +692,33 @@
       </section>
 
 
+      <section class="video-carousel-section">
+        <h2> From DigiCare</h2>
 
+        <div class="carousel">
+          <div class="carousel-track">
+
+            <div class="video-card active">
+              <video muted loop>
+                <source src="assets/video/mainvideo (1).mp4">
+              </video>
+            </div>
+
+            <div class="video-card">
+              <video muted loop>
+                <source src="assets/video/Video Project 3.mp4">
+              </video>
+            </div>
+
+            <div class="video-card">
+              <video muted loop>
+                <source src="assets/video/videocall.mp4">
+              </video>
+            </div>
+
+          </div>
+        </div>
+      </section>
      
 
       <!-- Testimonials Section -->
@@ -904,6 +930,33 @@
       localStorage.removeItem('user');
       window.location.reload();
     }
+
+
+      const cards = document.querySelectorAll(".video-card");
+    let index = 0;
+
+    function updateCarousel() {
+      cards.forEach(card => {
+        card.classList.remove("active");
+        card.querySelector("video").pause();
+      });
+
+      index = (index + 1) % cards.length;
+
+      const active = cards[index];
+      active.classList.add("active");
+      active.querySelector("video").play();
+    }
+
+    cards[index].classList.add("active");
+
+    // 10 sec auto slide
+    setInterval(updateCarousel, 10000);
+
+    // disable right click
+    document.querySelectorAll("video").forEach(v => {
+      v.addEventListener("contextmenu", e => e.preventDefault());
+    });
   </script>
   <script src="https://studio.pickaxe.co/api/embed/bundle.js" defer></script>
 
