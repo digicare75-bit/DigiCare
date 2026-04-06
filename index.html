@@ -691,101 +691,34 @@
         </div>
       </section>
 
+     <section class="health-section">
+        <div class="health-container">
 
-      <!-- <section class="video-carousel-section">
-        <h2> From DigiCare</h2>
+          <h2 class="health-title">Real-Time Health Monitor</h2>
 
-        <div class="carousel">
-          <div class="carousel-track">
-
-            <div class="video-card active">
-              <video muted loop>
-                <source src="assets/video/mainvideo (1).mp4">
-              </video>
+          <div class="health-grid">
+            <div class="health-card">
+              <p>❤️ Heart Rate</p>
+              <h3 id="heart">72 BPM</h3>
             </div>
 
-            <div class="video-card">
-              <video muted loop>
-                <source src="assets/video/Video Project 3.mp4">
-              </video>
+            <div class="health-card">
+              <p>🩸 Blood Pressure</p>
+              <h3 id="bp">120/80</h3>
             </div>
 
-            <div class="video-card">
-              <video muted loop>
-                <source src="assets/video/videocall.mp4">
-              </video>
+            <div class="health-card">
+              <p>🌡️ Temperature</p>
+              <h3 id="temp">36.5°C</h3>
             </div>
 
+            <div class="health-card">
+              <p>🫁 SpO2</p>
+              <h3 id="spo2">98%</h3>
+            </div>
           </div>
         </div>
       </section>
-     <style>
-.video-carousel-section {
-      width: 100%;
-      max-width: 1600px;
-      margin-left: auto;
-      margin-right: auto;
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-      padding: 60px 20px;
-      text-align: center;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-      background-color: #0f2a1e;
-      color: rgb(255, 255, 255);
-    }
-
-    .carousel-track {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-    }
-
-    /* Cards */
-    .video-card {
-      width: 250px;
-      height: 160px;
-      opacity: 0.5;
-      transform: scale(0.8);
-      filter: blur(2px);
-      transition: 0.5s;
-      border-radius: 15px;
-      overflow: hidden;
-    }
-
-    /* Active center */
-    .video-card.active {
-      width: 400px;
-      height: 250px;
-      opacity: 1;
-      transform: scale(1);
-      filter: blur(0);
-    }
-
-    /* Video */
-    .video-card video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .hero-overlay h1 {
-        font-size: 2.5rem;
-      }
-
-      .video-card.active {
-        width: 280px;
-        height: 180px;
-      }
-
-      .video-card {
-        width: 180px;
-        height: 120px;
-      }
-    }
-</style> -->
-
       <!-- Testimonials Section -->
       <section class="testimonials-section py-20" id="testimonials">
         <div class="container">
@@ -997,34 +930,20 @@
     }
 
 
+    function updateHealthData() {
+          document.getElementById("heart").innerText = (70 + Math.floor(Math.random() * 10)) + " BPM";
+
+          let sys = 110 + Math.floor(Math.random() * 20);
+          let dia = 70 + Math.floor(Math.random() * 10);
+          document.getElementById("bp").innerText = sys + "/" + dia;
+
+          document.getElementById("temp").innerText = (36 + Math.random()).toFixed(1) + "°C";
+
+          document.getElementById("spo2").innerText = (95 + Math.floor(Math.random() * 5)) + "%";
+        }
+
+        setInterval(updateHealthData, 2000);
      
-  </script>
-  <script>
-    const cards = document.querySelectorAll(".video-card");
-    let index = 0;
-
-    function updateCarousel() {
-      cards.forEach(card => {
-        card.classList.remove("active");
-        card.querySelector("video").pause();
-      });
-
-      index = (index + 1) % cards.length;
-
-      const active = cards[index];
-      active.classList.add("active");
-      active.querySelector("video").play();
-    }
-
-    cards[index].classList.add("active");
-
-    // 10 sec auto slide
-    setInterval(updateCarousel, 10000);
-
-    // disable right click
-    document.querySelectorAll("video").forEach(v => {
-      v.addEventListener("contextmenu", e => e.preventDefault());
-    });
   </script>
 
   <script src="https://studio.pickaxe.co/api/embed/bundle.js" defer></script>
