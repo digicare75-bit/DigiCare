@@ -1012,22 +1012,42 @@
       // 👤 User data
       const user = JSON.parse(localStorage.getItem('user') || '{}');
 
-      // ⏰ Time based greeting
       const hour = new Date().getHours();
       let greetingText = "";
 
-      if (hour < 12) greetingText = "Good Morning";
-      else if (hour < 18) greetingText = "Good Afternoon ";
-      else greetingText = "Good Evening";
+      //  Morning 
+      if (hour < 12) {
+        greetingText = "Good Morning";
+      }
 
-      // 👋 Greeting with first name
+      //  Afternoon 
+      else if (hour < 18) {
+        const afternoonMessages = [
+          " Keep going strong",
+          " Stay productive",
+          " Hope your day is going great"
+        ];
+        greetingText = afternoonMessages[Math.floor(Math.random() * afternoonMessages.length)];
+      }
+
+      //  Evening 
+      else {
+        const eveningMessages = [
+          "🌙 Time to relax",
+          "😌 Winding down?",
+          "💤 Take it easy tonight"
+        ];
+        greetingText = eveningMessages[Math.floor(Math.random() * eveningMessages.length)];
+      }
+
+      //  Final Greeting
       if (user.firstName) {
         greetingEl.innerText = `${greetingText}, ${user.firstName} 👋`;
       } else {
         greetingEl.innerText = `${greetingText} 👋`;
       }
 
-      // 📍 Location Detect
+      // 📍 Location Detect 
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(async (pos) => {
           const lat = pos.coords.latitude;
@@ -1053,12 +1073,10 @@
         }, () => {
           locationEl.innerText = "Permission Denied ";
         });
-      } else {
-        locationEl.innerText = "Geolocation not supported ";
       }
 
     });
-  
+ 
 
     document.addEventListener('DOMContentLoaded', () => {
 
