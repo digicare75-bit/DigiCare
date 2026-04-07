@@ -25,7 +25,81 @@
     window.location.href = "intro.html";
   }
   </script>
- 
+ <style>
+    /* Section */
+    .welcome-section {
+      position: absolute;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: max-content;
+      display: flex;
+      justify-content: center;
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+    /* Glass Box */
+    .welcome-box {
+      padding: 12px 18px;
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: slideFade 0.8s ease;
+      transition: all 0.3s ease;
+    }
+
+    /* Text */
+    #greeting {
+      font-size: 18px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    #location {
+      font-size: 14px;
+      color: rgb(118, 114, 113);
+    }
+
+    
+    /* Animation */
+    @keyframes slideFade {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 📱 Mobile Responsive */
+    @media (max-width: 768px) {
+      .welcome-section {
+        position: relative;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        pointer-events: auto;
+      }
+
+      .divider {
+        display: none;
+      }
+
+      #greeting {
+        font-size: 13px;
+      }
+
+      #location {
+        font-size: 13px;
+      }
+    }
+  </style>
 </head>
 
 <!-- ==================================== chatbot ==================================== -->
@@ -68,19 +142,20 @@
 
   <!-- Overlay -->
   <div class="overlay" id="overlay"></div>
-
-  
-
- 
-
   <main>
-
+  
     <div id="main" data-scroll-container>
       <!-- Hero Slider Section -->
       <section class="hero-slider" id="heroSlider">
         <!-- Slides Container -->
         <div class="slides-container">
-
+         <section class="welcome-section">
+            <div class="welcome-box">
+              <h2 id="greeting">Loading...</h2>
+              <span class="divider"></span>
+              <p id="location">Detecting location...</p>
+            </div>
+          </section>
           <!-- Slide 1: Smart Healthcare Management System -->
           <div class="slide active" data-slide="1">
             <div class="slide-background"
@@ -927,7 +1002,63 @@
   <div id="toast-container" class="toast-container"></div>
 
   <script src="assets/js/app.js"></script>
-  <script>
+   <!-- location -->
+   <script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+      const greetingEl = document.getElementById("greeting");
+      const locationEl = document.getElementById("location");
+
+      // 👤 User data
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+      // ⏰ Time based greeting
+      const hour = new Date().getHours();
+      let greetingText = "";
+
+      if (hour < 12) greetingText = "Good Morning";
+      else if (hour < 18) greetingText = "Good Afternoon ";
+      else greetingText = "Good Evening";
+
+      // 👋 Greeting with first name
+      if (user.firstName) {
+        greetingEl.innerText = `${greetingText}, ${user.firstName} 👋`;
+      } else {
+        greetingEl.innerText = `${greetingText} 👋`;
+      }
+
+      // 📍 Location Detect
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(async (pos) => {
+          const lat = pos.coords.latitude;
+          const lon = pos.coords.longitude;
+
+          try {
+            const res = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`
+            );
+            const data = await res.json();
+
+            const city = data.address.city ||
+              data.address.town ||
+              data.address.village || "";
+            const state = data.address.state || "";
+            const country = data.address.country || "";
+
+            locationEl.innerText = ` ${city}, ${state}, ${country}`;
+          } catch {
+            locationEl.innerText = "Location unavailable ";
+          }
+
+        }, () => {
+          locationEl.innerText = "Permission Denied ";
+        });
+      } else {
+        locationEl.innerText = "Geolocation not supported ";
+      }
+
+    });
+  
 
     document.addEventListener('DOMContentLoaded', () => {
 
