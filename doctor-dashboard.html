@@ -844,36 +844,43 @@ menuToggle.addEventListener("click", () => {
             }
         });
 
-        // Appointment Functions
+// Appointment Functions
         async function loadAppointments() {
             const tbody = document.getElementById('appointmentsList');
             tbody.innerHTML = '<tr><td colspan="5" class="text-center"><span class="spinner"></span> Loading...</td></tr>';
             try {
                 const apps = await window.AppointmentAPI.getDoctorAppointments();
-                apps.sort((a, b) => new Date(b.scheduledTime) - new Date(a.scheduledTime));
+                const filteredApps = apps
+                .sort((a, b) => new Date(b.scheduledTime) - new Date(a.scheduledTime));
 
-                if (apps.length === 0) {
+                if (filteredApps.length === 0) {
                     tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">No appointments found.</td></tr>';
                     return;
                 }
 
-                tbody.innerHTML = apps.map(app => {
+                tbody.innerHTML = filteredApps.map(app =>  {
                     const date = new Date(app.scheduledTime).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' });
                     let sClass = 'bg-primary';
                     if (app.status === 'CANCELLED') sClass = 'bg-danger';
                     if (app.status === 'COMPLETED') sClass = 'bg-success';
+                    if (app.status === 'AVAILABLE') sClass = 'bg-info bg-opacity-10 text-info';
 
                     let prescribeBtn = app.patientId ? `<button class="btn btn-sm btn-outline-primary" style="padding: 0.25rem; font-size: 0.8rem; width:100%" onclick="openPrescriptionModal(${app.id}, ${app.patientId}, '${(app.patientName||'').replace(/'/g, "\\'")}')">Prescribe</button>` : '';
                     let videoBtn = app.patientId ? `<button class="btn btn-sm btn-outline-success" style="padding: 0.25rem; font-size: 0.8rem; width:100%" onclick="openVideoSessionModal(${app.id}, 'Apt #${app.id} - ${(app.patientName||'').replace(/'/g, "\\'")}')"><i class="fa-solid fa-video"></i> Video Session</button>` : '';
+
+                    let patientNameDisplay = app.patientId ? (app.patientName || 'Unknown Patient') : '<span class="text-muted italic">Open Slot</span>';
+                    let avatarDisplay = app.patientId 
+                        ? Helpers.getAvatarHtml(app.patientProfileImageUrl, app.patientName, 'avatar-sm') 
+                        : '<div class="avatar avatar-sm" style="background:var(--bg-secondary); color:var(--text-muted);"><div class="avatar-placeholder"><i class="fa-solid fa-clock"></i></div></div>';
 
                     return `
                         <tr>
                             <td class="font-medium">
                                 <div class="flex items-center gap-3">
                                     <div class="flex-shrink-0">
-                                        ${Helpers.getAvatarHtml(app.patientProfileImageUrl, app.patientName, 'avatar-sm')}
-                                    </div>
-                                    <span>${app.patientName || 'N/A'}</span>
+                                        ${avatarDisplay}
+                                    </div> 
+                                    <span>${patientNameDisplay}</span>
                                 </div>
                             </td>
                             <td>${date}</td>
@@ -881,14 +888,15 @@ menuToggle.addEventListener("click", () => {
                             <td><span class="badge ${sClass} text-white">${app.status || 'SCHEDULED'}</span></td>
                             <td>
                                 <div class="flex flex-col gap-1">
-                                    ${app.status !== 'CANCELLED' && app.status !== 'COMPLETED' ? `
+                                    ${app.status === 'BOOKED' ? `
                                         <select class="form-control" style="padding:0.25rem; font-size:0.8rem; height:auto; min-width: 100px" onchange="updateStatus(${app.id}, this)">
                                             <option value="" disabled selected>Update</option>
                                             <option value="COMPLETED">Complete</option>
                                             <option value="CANCELLED">Cancel</option>
-                                            <option value="NO_SHOW">No Show</option>
                                         </select>
-                                    ` : ''}
+                                    ` : (app.status === 'AVAILABLE' ? `
+                                        <button class="btn btn-sm btn-outline-danger" style="padding: 0.25rem; font-size: 0.8rem; width:100%" onclick="updateStatus(${app.id}, {value: 'CANCELLED'})">Cancel Slot</button>
+                                    ` : '')}
                                     ${prescribeBtn}
                                     ${videoBtn}
                                 </div>
