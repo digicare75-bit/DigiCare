@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DigiCare+</title>
+    <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+        ::selection{
+            background: rgb(222, 33, 65);
+            color: white;
+        }
+
+        body {
+            font-family: Inter, Arial, sans-serif;
+            background: #050505;
+            color: #fff;
+            overflow: hidden
+        }
+
+        video.bg {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: .25;
+            z-index: -2
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at top, #1a1a1a55, #000 65%);
+            z-index: -1
+        }
+
+        .wrap {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px
+        }
+
+        .card {
+            width: min(900px, 100%);
+            padding: 50px;
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: 28px;
+            background: rgba(255, 255, 255, .05);
+            backdrop-filter: blur(18px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .5);
+            text-align: center
+        }
+
+        .tag {
+            letter-spacing: 4px;
+            color: #8b8b8b;
+            font-size: 12px;
+            text-transform: uppercase
+        }
+
+        .title {
+            font-size: clamp(2.2rem, 7vw, 5rem);
+            margin: 18px 0;
+            font-weight: 800
+        }
+
+        .sub {
+            color: #bdbdbd;
+            max-width: 620px;
+            margin: 0 auto 34px;
+            line-height: 1.6
+        }
+
+        .timer {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px
+        }
+
+        .box {
+            padding: 22px;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid rgba(255, 255, 255, .08)
+        }
+
+        .num {
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            font-weight: 800
+        }
+
+        .lab {
+            margin-top: 8px;
+            color: #9a9a9a;
+            font-size: .9rem
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 34px;
+            padding: 14px 28px;
+            border-radius: 999px;
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            font-weight: 700
+        }
+
+        .pulse {
+            animation: pulse 1.8s infinite
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1)
+            }
+
+            50% {
+                transform: scale(1.03)
+            }
+        }
+
+        @media(max-width:700px) {
+            .timer {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .card {
+                padding: 28px
+            }
+        }
+
+        body {
+            cursor: none
+        }
+
+        .cursor-dot,
+        .cursor-ring {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            border-radius: 50%
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background: #fff;
+            mix-blend-mode: difference
+        }
+
+        .cursor-ring {
+            width: 42px;
+            height: 42px;
+            border: 1px solid rgba(255, 255, 255, .45);
+            backdrop-filter: blur(4px);
+            transition: width .2s, height .2s, border-color .2s
+        }
+
+        a:hover~.cursor-ring,
+        .btn:hover~.cursor-ring {
+            width: 60px;
+            height: 60px;
+            border-color: #fff
+        }
+    </style>
+</head>
+
+<body>
+    <video class="bg" autoplay muted loop playsinline>
+        <source src="assets/video/video.mp4" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
+    <div class="wrap">
+        <div class="card pulse">
+            <div class="tag">DIGICARE IS ARRIVING</div>
+            <h1 class="title">We Are Launching Soon</h1>
+            <p class="sub">DigiCare is a smart and integrated digital healthcare platform that brings doctor
+                consultations, online pharmacy, emergency support, and medical records into one place.</p>
+            <div class="timer">
+                <div class="box">
+                    <div class="num" id="days">00</div>
+                    <div class="lab">Days</div>
+                </div>
+                <div class="box">
+                    <div class="num" id="hours">00</div>
+                    <div class="lab">Hours</div>
+                </div>
+                <div class="box">
+                    <div class="num" id="mins">00</div>
+                    <div class="lab">Minutes</div>
+                </div>
+                <div class="box">
+                    <div class="num" id="secs">00</div>
+                    <div class="lab">Seconds</div>
+                </div>
+            </div>
+            <a href="#" class="btn" id="joinBtn">Join Early Access</a>
+            <div id="popup"
+                style="position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:center;justify-content:center;z-index:10000;padding:20px;">
+                <div
+                    style="max-width:420px;width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(18px);border-radius:24px;padding:28px;text-align:center;color:#fff;box-shadow:0 20px 60px rgba(0,0,0,.45)">
+                    <h2 style="margin-bottom:10px">You're In 🚀</h2>
+                    <p style="color:#cfcfcf;line-height:1.6;margin-bottom:18px">Thanks for joining early access. We'll
+                        notify you when we launch.</p>
+                    <button id="closePopup"
+                        style="padding:12px 22px;border:none;border-radius:999px;font-weight:700;cursor:pointer">Awesome</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    <script>
+        if (localStorage.getItem('launchDone') === 'true') { window.location.href = 'index.html'; }
+
+        const launchDate = new Date("2026-04-28T12:30:00");
+        function update() { const now = new Date().getTime(); const diff = launchDate - now; if (diff <= 0) { localStorage.setItem('launchDone', 'true'); window.location.href = 'index.html'; return; } const d = Math.floor(diff / 1000 / 60 / 60 / 24); const h = Math.floor(diff / 1000 / 60 / 60) % 24; const m = Math.floor(diff / 1000 / 60) % 60; const s = Math.floor(diff / 1000) % 60; days.innerText = String(d).padStart(2, '0'); hours.innerText = String(h).padStart(2, '0'); mins.innerText = String(m).padStart(2, '0'); secs.innerText = String(s).padStart(2, '0'); }
+        setInterval(update, 1000); update();
+    </script>
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+    <script>
+        const dot = document.querySelector('.cursor-dot'); const ring = document.querySelector('.cursor-ring'); let mx = 0, my = 0, rx = 0, ry = 0; window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px'; }); function animate() { rx += (mx - rx) * 0.14; ry += (my - ry) * 0.14; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(animate) } animate(); document.querySelectorAll('a,button,.box,.card').forEach(el => { el.addEventListener('mouseenter', () => { ring.style.width = '62px'; ring.style.height = '62px'; ring.style.borderColor = '#ffffff' }); el.addEventListener('mouseleave', () => { ring.style.width = '42px'; ring.style.height = '42px'; ring.style.borderColor = 'rgba(255,255,255,.45)' }) });
+    </script>
+    <script>
+        const bgVideo = document.querySelector('.bg'); const card = document.querySelector('.card'); const title = document.querySelector('.title'); const sub = document.querySelector('.sub'); const btn = document.querySelector('.btn'); let transformed = false; let finalMode = false;
+        setInterval(() => {
+            const sec = parseInt(document.getElementById('secs')?.innerText || '0'); const day = parseInt(document.getElementById('days')?.innerText || '0'); const hr = parseInt(document.getElementById('hours')?.innerText || '0'); const min = parseInt(document.getElementById('mins')?.innerText || '0'); if (day === 0 && hr === 0 && min === 0 && sec <= 30 && !transformed) { transformed = true; document.body.style.background = 'radial-gradient(circle at center,#120018,#000)'; card.style.boxShadow = '0 0 60px rgba(180,0,255,.45)'; card.style.borderColor = 'rgba(255,0,255,.4)'; title.innerText = 'Launching In Moments'; sub.innerText = 'The wait is almost over...'; btn.innerText = 'Get Ready'; bgVideo.style.opacity = '.12'; document.querySelectorAll('.box').forEach((b, i) => { b.style.animation = 'pulse .8s infinite'; }); }
+            if (day === 0 && hr === 0 && min === 0 && sec <= 10 && !finalMode) { finalMode = true; title.style.fontSize = 'clamp(3rem,10vw,7rem)'; title.innerText = 'FINAL COUNTDOWN'; card.style.transform = 'scale(1.03)'; }
+        }, 500);
+    </script>
+    <script>
+        const joinBtn = document.getElementById('joinBtn'); const popup = document.getElementById('popup'); const closePopup = document.getElementById('closePopup'); if (joinBtn) { joinBtn.addEventListener('click', e => { e.preventDefault(); popup.style.display = 'flex'; }); } if (closePopup) { closePopup.addEventListener('click', () => popup.style.display = 'none'); } if (popup) { popup.addEventListener('click', e => { if (e.target === popup) popup.style.display = 'none'; }); }
+    </script>
+    <script>
+document.addEventListener('contextmenu',e=>e.preventDefault());
+document.addEventListener('keydown',e=>{if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&['I','J','C'].includes(e.key.toUpperCase()))||(e.ctrlKey&&e.key.toLowerCase()==='u')){e.preventDefault();}});
+</script>
+</body>
+
+</html>
