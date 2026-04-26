@@ -1044,7 +1044,7 @@ a {
 
 /* Chat Messenger Styles */
 .chat-container {
-    display: grid;
+     display: grid;
     grid-template-columns: 260px 1fr;
     height: 500px;
     border: 1px solid var(--border);
@@ -1138,7 +1138,7 @@ a {
     flex-direction: column;
     gap: 0.75rem;
     background: linear-gradient(180deg, var(--bg-main), var(--surface));
-    scroll-behavior: smooth; 
+    scroll-behavior: smooth;
 }
 
 .chat-message {
@@ -1164,6 +1164,7 @@ a {
     border: 1px solid var(--border);
     border-bottom-left-radius: 4px;
 }
+
 
 .chat-message-time {
     font-size: 0.65rem;
