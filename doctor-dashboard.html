@@ -1318,127 +1318,242 @@ menuToggle.addEventListener("click", () => {
             return html;
         }
 
-        // ==================== CHAT FUNCTIONS ====================
-        let currentChatUserId = null;
-        let chatRefreshInterval = null;
+     // ==================== CHAT FUNCTIONS ====================
 
-        async function loadChatContacts() {
-            const container = document.getElementById('chatContactsList');
-            container.innerHTML = '<div class="chat-empty-state" style="padding:2rem;"><i class="fa-solid fa-spinner fa-spin"></i><span class="text-sm">Loading...</span></div>';
+let currentChatUserId = null;
+let chatRefreshInterval = null;
 
-            try {
-                const apps = await window.AppointmentAPI.getDoctorAppointments();
-                const contactMap = new Map();
-                apps.forEach(app => {
-                    if (app.patientId && app.patientName) {
-                        contactMap.set(app.patientId, { id: app.patientId, name: app.patientName, profileImageUrl: app.patientProfileImageUrl });
-                    }
+// ==================== AUTO SCROLL ====================
+function scrollChatToBottom() {
+    const area = document.getElementById("chatMessagesArea");
+
+    requestAnimationFrame(() => {
+        area.scrollTop = area.scrollHeight;
+    });
+
+    setTimeout(() => {
+        area.scrollTop = area.scrollHeight;
+    }, 100);
+}
+
+// ==================== LOAD CONTACTS ====================
+async function loadChatContacts() {
+    const container = document.getElementById("chatContactsList");
+
+    container.innerHTML = `
+        <div class="chat-empty-state" style="padding:2rem;">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            <span class="text-sm">Loading...</span>
+        </div>
+    `;
+
+    try {
+        const apps = await window.AppointmentAPI.getDoctorAppointments();
+
+        const contactMap = new Map();
+
+        apps.forEach(app => {
+            if (app.patientId && app.patientName) {
+                contactMap.set(app.patientId, {
+                    id: app.patientId,
+                    name: app.patientName,
+                    profileImageUrl: app.patientProfileImageUrl
                 });
-
-                const contacts = Array.from(contactMap.values());
-
-                if (contacts.length === 0) {
-                    container.innerHTML = '<div class="chat-empty-state" style="padding:2rem;"><i class="fa-solid fa-user-slash"></i><span class="text-sm">No patients yet</span></div>';
-                    return;
-                }
-
-                container.innerHTML = contacts.map(c => `
-                    <div class="chat-contact-item ${currentChatUserId === c.id ? 'active' : ''}" onclick="openChat(${c.id}, '${c.name.replace(/'/g, "\\'")}', '${c.profileImageUrl || ''}')">
-                        <div class="flex-shrink-0">
-                            ${Helpers.getAvatarHtml(c.profileImageUrl, c.name, 'avatar-md')}
-                        </div>
-                        <div class="chat-contact-info">
-                            <div class="chat-contact-name">${c.name}</div>
-                            <div class="chat-contact-preview">Click to chat</div>
-                        </div>
-                    </div>
-                `).join('');
-
-            } catch (e) {
-                container.innerHTML = '<div class="chat-empty-state" style="padding:2rem;"><i class="fa-solid fa-exclamation-triangle"></i><span class="text-sm">Failed to load contacts</span></div>';
-            }
-        }
-
-        async function openChat(userId, userName, userPhoto) {
-            currentChatUserId = userId;
-            // Update contact list active state
-            document.querySelectorAll('.chat-contact-item').forEach(el => el.classList.remove('active'));
-            if (window.event && window.event.currentTarget && window.event.currentTarget.classList.contains('chat-contact-item')) {
-                window.event.currentTarget.classList.add('active');
-            }
-
-            // Show header and input
-            const header = document.getElementById('chatHeader');
-            header.style.display = 'flex';
-            document.getElementById('chatHeaderAvatar').innerHTML = Helpers.getAvatarHtml(userPhoto, userName, 'avatar-sm');
-            document.getElementById('chatHeaderName').textContent = userName;
-            document.getElementById('chatInputBar').style.display = 'flex';
-            document.getElementById('chatMessageInput').focus();
-
-            await loadChatHistory(userId);
-
-            // Set up auto-refresh
-            if (chatRefreshInterval) clearInterval(chatRefreshInterval);
-            chatRefreshInterval = setInterval(() => {
-                if (currentChatUserId === userId) loadChatHistory(userId);
-            }, 5000);
-        }
-
-        async function loadChatHistory(userId) {
-            const area = document.getElementById('chatMessagesArea');
-            const user = JSON.parse(localStorage.getItem('user') || '{}');
-            const myId = user.id;
-
-            try {
-                const messages = await window.ChatAPI.getHistory(userId);
-
-                if (!messages || messages.length === 0) {
-                    area.innerHTML = '<div class="chat-empty-state"><i class="fa-solid fa-comment-dots"></i><span>No messages yet. Say hello!</span></div>';
-                    return;
-                }
-
-                area.innerHTML = messages.map(m => {
-                    const isSent = m.senderId === myId;
-                    const time = new Date(m.timestamp).toLocaleString([], { dateStyle: 'short', timeStyle: 'short' });
-                    return `
-                        <div class="chat-message ${isSent ? 'sent' : 'received'}">
-                            ${m.content}
-                            ${m.attachmentUrl ? `<br><a href="${m.attachmentUrl}" target="_blank" class="text-sm" style="${isSent ? 'color:rgba(255,255,255,0.9)' : 'color:var(--primary)'};"><i class="fa-solid fa-paperclip"></i> Attachment</a>` : ''}
-                            <span class="chat-message-time">${time}</span>
-                        </div>
-                    `;
-                }).join('');
-
-                area.scrollTop = area.scrollHeight;
-            } catch (e) {
-                if (area.children.length <= 1) {
-                    area.innerHTML = '<div class="chat-empty-state"><i class="fa-solid fa-exclamation-triangle"></i><span>Failed to load messages</span></div>';
-                }
-            }
-        }
-
-        async function sendChatMessage() {
-            const input = document.getElementById('chatMessageInput');
-            const content = input.value.trim();
-            if (!content || !currentChatUserId) return;
-
-            input.value = '';
-            try {
-                await window.ChatAPI.send({ receiverId: currentChatUserId, content: content });
-                await loadChatHistory(currentChatUserId);
-            } catch (e) {
-                Helpers.showToast('Failed to send message: ' + e.message, 'error');
-            }
-        }
-
-        // Send on Enter key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && document.activeElement === document.getElementById('chatMessageInput')) {
-                e.preventDefault();
-                sendChatMessage();
             }
         });
 
+        const contacts = Array.from(contactMap.values());
+
+        if (contacts.length === 0) {
+            container.innerHTML = `
+                <div class="chat-empty-state" style="padding:2rem;">
+                    <i class="fa-solid fa-user-slash"></i>
+                    <span class="text-sm">No patients yet</span>
+                </div>
+            `;
+            return;
+        }
+
+        container.innerHTML = contacts.map(c => `
+            <div class="chat-contact-item ${currentChatUserId === c.id ? "active" : ""}"
+                 onclick="openChat(${c.id}, '${c.name.replace(/'/g, "\\'")}', '${c.profileImageUrl || ""}')">
+
+                <div class="flex-shrink-0">
+                    ${Helpers.getAvatarHtml(c.profileImageUrl, c.name, "avatar-md")}
+                </div>
+
+                <div class="chat-contact-info">
+                    <div class="chat-contact-name">${c.name}</div>
+                    <div class="chat-contact-preview">Click to chat</div>
+                </div>
+
+            </div>
+        `).join("");
+
+    } catch (e) {
+        container.innerHTML = `
+            <div class="chat-empty-state" style="padding:2rem;">
+                <i class="fa-solid fa-exclamation-triangle"></i>
+                <span class="text-sm">Failed to load contacts</span>
+            </div>
+        `;
+    }
+}
+
+// ==================== OPEN CHAT ====================
+async function openChat(userId, userName, userPhoto) {
+
+    currentChatUserId = userId;
+
+    document.querySelectorAll(".chat-contact-item").forEach(el => {
+        el.classList.remove("active");
+    });
+
+    if (
+        window.event &&
+        window.event.currentTarget &&
+        window.event.currentTarget.classList.contains("chat-contact-item")
+    ) {
+        window.event.currentTarget.classList.add("active");
+    }
+
+    // Header Show
+    const header = document.getElementById("chatHeader");
+    header.style.display = "flex";
+
+    document.getElementById("chatHeaderAvatar").innerHTML =
+        Helpers.getAvatarHtml(userPhoto, userName, "avatar-sm");
+
+    document.getElementById("chatHeaderName").textContent = userName;
+
+    // Input Show
+    document.getElementById("chatInputBar").style.display = "flex";
+    document.getElementById("chatMessageInput").focus();
+
+    await loadChatHistory(userId);
+
+    // Refresh every 5 sec
+    if (chatRefreshInterval) clearInterval(chatRefreshInterval);
+
+    chatRefreshInterval = setInterval(() => {
+        if (currentChatUserId === userId) {
+            loadChatHistory(userId);
+        }
+    }, 5000);
+}
+
+// ==================== LOAD HISTORY ====================
+async function loadChatHistory(userId) {
+
+    const area = document.getElementById("chatMessagesArea");
+
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    const myId = user.id;
+
+    try {
+        const messages = await window.ChatAPI.getHistory(userId);
+
+        if (!messages || messages.length === 0) {
+            area.innerHTML = `
+                <div class="chat-empty-state">
+                    <i class="fa-solid fa-comment-dots"></i>
+                    <span>No messages yet. Say hello!</span>
+                </div>
+            `;
+            return;
+        }
+
+        area.innerHTML = messages.map(m => {
+
+            const isSent = m.senderId === myId;
+
+            const time = new Date(m.timestamp).toLocaleString([], {
+                dateStyle: "short",
+                timeStyle: "short"
+            });
+
+            return `
+                <div class="chat-message ${isSent ? "sent" : "received"}">
+
+                    ${m.content}
+
+                    ${m.attachmentUrl ? `
+                        <br>
+                        <a href="${m.attachmentUrl}" target="_blank"
+                           class="text-sm"
+                           style="${isSent
+                                ? "color:rgba(255,255,255,0.9)"
+                                : "color:var(--primary)"}">
+
+                            <i class="fa-solid fa-paperclip"></i>
+                            Attachment
+
+                        </a>
+                    ` : ""}
+
+                    <span class="chat-message-time">${time}</span>
+
+                </div>
+            `;
+        }).join("");
+
+        // Auto Scroll Bottom
+        scrollChatToBottom();
+
+    } catch (e) {
+
+        area.innerHTML = `
+            <div class="chat-empty-state">
+                <i class="fa-solid fa-exclamation-triangle"></i>
+                <span>Failed to load messages</span>
+            </div>
+        `;
+    }
+}
+
+// ==================== SEND MESSAGE ====================
+async function sendChatMessage() {
+
+    const input = document.getElementById("chatMessageInput");
+
+    const content = input.value.trim();
+
+    if (!content || !currentChatUserId) return;
+
+    input.value = "";
+
+    try {
+
+        await window.ChatAPI.send({
+            receiverId: currentChatUserId,
+            content: content
+        });
+
+        await loadChatHistory(currentChatUserId);
+
+        input.focus();
+
+    } catch (e) {
+
+        Helpers.showToast(
+            "Failed to send message: " + e.message,
+            "error"
+        );
+    }
+}
+
+// ==================== ENTER KEY SEND ====================
+document.addEventListener("keydown", function (e) {
+
+    if (
+        e.key === "Enter" &&
+        document.activeElement === document.getElementById("chatMessageInput")
+    ) {
+        e.preventDefault();
+        sendChatMessage();
+    }
+
+});
         // ==================== EMERGENCY FUNCTIONS ====================
         async function loadDoctorEmergencies() {
             const tbody = document.getElementById('doctorEmergenciesList');
