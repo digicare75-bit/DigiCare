@@ -229,7 +229,7 @@
     <script>
         if (localStorage.getItem('launchDone') === 'true') { window.location.href = 'index.html'; }
 
-        const launchDate = new Date("2026-04-29T12:30:00");
+        const launchDate = new Date("2026-04-29T08:35:00");
         function update() { const now = new Date().getTime(); const diff = launchDate - now; if (diff <= 0) { localStorage.setItem('launchDone', 'true'); window.location.href = 'index.html'; return; } const d = Math.floor(diff / 1000 / 60 / 60 / 24); const h = Math.floor(diff / 1000 / 60 / 60) % 24; const m = Math.floor(diff / 1000 / 60) % 60; const s = Math.floor(diff / 1000) % 60; days.innerText = String(d).padStart(2, '0'); hours.innerText = String(h).padStart(2, '0'); mins.innerText = String(m).padStart(2, '0'); secs.innerText = String(s).padStart(2, '0'); }
         setInterval(update, 1000); update();
     </script>
