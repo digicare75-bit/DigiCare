@@ -84,22 +84,22 @@
     <h1>DigiCare+</h1>
   </div>
 
-  <script>
-  setTimeout(() => {
-    // Mark intro as played
-    sessionStorage.setItem("introPlayed", "true");
-
-    // Redirect to index
-    window.location.href = "index.html";
-  }, 5000);
-</script>
-<script>
+ <script>
 const launchDate = new Date("2026-04-29T12:30:00");
+const now = new Date();
 
-if(new Date() < launchDate){
-   window.location.href = "launching.html";
+if (now < launchDate) {
+    // Before launch → go launching page
+    window.location.href = "launching.html";
+} else {
+    // After launch → show intro then go home
+    setTimeout(() => {
+        sessionStorage.setItem("introPlayed", "true");
+        window.location.href = "index.html";
+    }, 5000);
 }
-</script> 
+</script>
+
 
 </body>
 </html>
