@@ -15,7 +15,7 @@
         ::selection{
             background: rgb(222, 33, 65);
             color: white;
-        } 
+        }
 
         body {
             font-family: Inter, Arial, sans-serif;
@@ -201,7 +201,6 @@
                     <div class="lab">Hours</div>
                 </div>
                 <div class="box">
-                    
                     <div class="num" id="mins">00</div>
                     <div class="lab">Minutes</div>
                 </div>
@@ -226,25 +225,153 @@
     </div>
     </div>
     </div>
-    <!-- <script>
-        if (localStorage.getItem('launchDone') === 'true') { window.location.href = 'index.html'; }
+   <script>
+const launchDate = new Date("2026-04-29T12:30:00");
+const now = new Date();
 
-        const launchDate = new Date("2026-04-29T08:35:00");
-        function update() { const now = new Date().getTime(); const diff = launchDate - now; if (diff <= 0) { localStorage.setItem('launchDone', 'true'); window.location.href = 'index.html'; return; } const d = Math.floor(diff / 1000 / 60 / 60 / 24); const h = Math.floor(diff / 1000 / 60 / 60) % 24; const m = Math.floor(diff / 1000 / 60) % 60; const s = Math.floor(diff / 1000) % 60; days.innerText = String(d).padStart(2, '0'); hours.innerText = String(h).padStart(2, '0'); mins.innerText = String(m).padStart(2, '0'); secs.innerText = String(s).padStart(2, '0'); }
-        setInterval(update, 1000); update();
-    </script> -->
+// If launch completed → go intro page
+if (now >= launchDate) {
+    window.location.href = "intro.html";
+}
+
+function update() {
+    const nowTime = new Date().getTime();
+    const diff = launchDate - nowTime;
+
+    if (diff <= 0) {
+        window.location.href = "intro.html";
+        return;
+    }
+
+    const d = Math.floor(diff / 1000 / 60 / 60 / 24);
+    const h = Math.floor(diff / 1000 / 60 / 60) % 24;
+    const m = Math.floor(diff / 1000 / 60) % 60;
+    const s = Math.floor(diff / 1000) % 60;
+
+    days.innerText = String(d).padStart(2, '0');
+    hours.innerText = String(h).padStart(2, '0');
+    mins.innerText = String(m).padStart(2, '0');
+    secs.innerText = String(s).padStart(2, '0');
+}
+
+setInterval(update, 1000);
+update();
+</script>
     <div class="cursor-dot"></div>
+
     <div class="cursor-ring"></div>
     <script>
         const dot = document.querySelector('.cursor-dot'); const ring = document.querySelector('.cursor-ring'); let mx = 0, my = 0, rx = 0, ry = 0; window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px'; }); function animate() { rx += (mx - rx) * 0.14; ry += (my - ry) * 0.14; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(animate) } animate(); document.querySelectorAll('a,button,.box,.card').forEach(el => { el.addEventListener('mouseenter', () => { ring.style.width = '62px'; ring.style.height = '62px'; ring.style.borderColor = '#ffffff' }); el.addEventListener('mouseleave', () => { ring.style.width = '42px'; ring.style.height = '42px'; ring.style.borderColor = 'rgba(255,255,255,.45)' }) });
     </script>
     <script>
-        const bgVideo = document.querySelector('.bg'); const card = document.querySelector('.card'); const title = document.querySelector('.title'); const sub = document.querySelector('.sub'); const btn = document.querySelector('.btn'); let transformed = false; let finalMode = false;
-        setInterval(() => {
-            const sec = parseInt(document.getElementById('secs')?.innerText || '0'); const day = parseInt(document.getElementById('days')?.innerText || '0'); const hr = parseInt(document.getElementById('hours')?.innerText || '0'); const min = parseInt(document.getElementById('mins')?.innerText || '0'); if (day === 0 && hr === 0 && min === 0 && sec <= 30 && !transformed) { transformed = true; document.body.style.background = 'radial-gradient(circle at center,#120018,#000)'; card.style.boxShadow = '0 0 60px rgba(180,0,255,.45)'; card.style.borderColor = 'rgba(255,0,255,.4)'; title.innerText = 'Launching In Moments'; sub.innerText = 'The wait is almost over...'; btn.innerText = 'Get Ready'; bgVideo.style.opacity = '.12'; document.querySelectorAll('.box').forEach((b, i) => { b.style.animation = 'pulse .8s infinite'; }); }
-            if (day === 0 && hr === 0 && min === 0 && sec <= 10 && !finalMode) { finalMode = true; title.style.fontSize = 'clamp(3rem,10vw,7rem)'; title.innerText = 'FINAL COUNTDOWN'; card.style.transform = 'scale(1.03)'; }
-        }, 500);
-    </script>
+/* ========= REPLACE YOUR LAST TRANSFORM SCRIPT WITH THIS ========= */
+
+const bgVideo = document.querySelector('.bg');
+const card = document.querySelector('.card');
+const wrap = document.querySelector('.wrap');
+const title = document.querySelector('.title');
+const sub = document.querySelector('.sub');
+const btn = document.querySelector('.btn');
+const timer = document.querySelector('.timer');
+
+let videoMode = false;
+let finalTimerMode = false;
+
+setInterval(() => {
+
+    const sec = parseInt(document.getElementById('secs').innerText || '0');
+    const min = parseInt(document.getElementById('mins').innerText || '0');
+    const hr  = parseInt(document.getElementById('hours').innerText || '0');
+    const day = parseInt(document.getElementById('days').innerText || '0');
+
+    /* total seconds left */
+    const total =
+        (day * 86400) +
+        (hr * 3600) +
+        (min * 60) +
+        sec;
+
+    /* ===============================
+       BELOW 90 SECOND -> VIDEO MODE
+    ================================ */
+    if (total <= 90 && total > 15 && !videoMode) {
+
+        videoMode = true;
+
+        /* hide all content except timer */
+        title.style.display = "none";
+        sub.style.display = "none";
+        btn.style.display = "none";
+
+        /* card transparent */
+        card.style.background = "transparent";
+        card.style.border = "none";
+        card.style.boxShadow = "none";
+        card.style.backdropFilter = "none";
+
+        /* full screen center timer */
+        wrap.style.display = "flex";
+        wrap.style.justifyContent = "center";
+        wrap.style.alignItems = "center";
+
+        /* video strong visible */
+        bgVideo.style.opacity = "0.9";
+        bgVideo.play();
+
+        /* timer style */
+        timer.style.maxWidth = "900px";
+        timer.style.margin = "auto";
+
+        document.querySelectorAll('.box').forEach(box=>{
+            box.style.background = "rgba(0,0,0,.35)";
+            box.style.border = "1px solid rgba(255,255,255,.18)";
+            box.style.backdropFilter = "blur(10px)";
+        });
+
+        document.querySelectorAll('.num').forEach(num=>{
+            num.style.fontSize = "4rem";
+            num.style.color = "#fff";
+            num.style.textShadow = "0 0 25px #fff";
+        });
+
+    }
+
+    /* ==================================
+       BELOW 15 SECOND -> ONLY BIG SECOND
+    =================================== */
+    if (total <= 15 && !finalTimerMode) {
+
+        finalTimerMode = true;
+
+        /* hide day hour min */
+        document.getElementById('days').parentElement.style.display = "none";
+        document.getElementById('hours').parentElement.style.display = "none";
+        document.getElementById('mins').parentElement.style.display = "none";
+
+        /* only second full screen */
+        timer.style.gridTemplateColumns = "1fr";
+        timer.style.maxWidth = "100%";
+
+        const secBox = document.getElementById('secs').parentElement;
+
+        secBox.style.padding = "60px";
+        secBox.style.borderRadius = "30px";
+        secBox.style.background = "rgba(0,0,0,.35)";
+        secBox.style.border = "2px solid rgba(255,255,255,.25)";
+
+        document.getElementById('secs').style.fontSize = "12rem";
+        document.getElementById('secs').style.fontWeight = "900";
+        document.getElementById('secs').style.textShadow = "0 0 40px #fff";
+
+        secBox.querySelector('.lab').innerText = "SECONDS";
+        secBox.querySelector('.lab').style.fontSize = "1.3rem";
+        secBox.querySelector('.lab').style.marginTop = "15px";
+
+        card.style.width = "100%";
+    }
+
+}, 300);
+</script>
     <script>
         const joinBtn = document.getElementById('joinBtn'); const popup = document.getElementById('popup'); const closePopup = document.getElementById('closePopup'); if (joinBtn) { joinBtn.addEventListener('click', e => { e.preventDefault(); popup.style.display = 'flex'; }); } if (closePopup) { closePopup.addEventListener('click', () => popup.style.display = 'none'); } if (popup) { popup.addEventListener('click', e => { if (e.target === popup) popup.style.display = 'none'; }); }
     </script>
